@@ -10,7 +10,7 @@ Browse the live project site: https://ljkh00.github.io/labeye
 | Node | Spec | Role |
 |------|------|------|
 | Dell R440 | 128 GB RAM, 3 TB HDD, Proxmox | Master control plane, image store, SIEM hub |
-| 10× Acer Predator | Proxmox installed | Edge hypervisors — host vulnerable target VMs |
+| 11× Acer Predator | Proxmox installed | 10 Ceph cluster nodes (edge hypervisors, vulnerable target VMs) + 1 T-Pot honeypot host |
 | 20× Lenovo Desktop | Windows 11 | Attacker / Defender stations (class-configurable) |
 
 ## Project Phases
@@ -27,7 +27,7 @@ Browse the live project site: https://ljkh00.github.io/labeye
 | [FYP-3B](fyp3b.html) | IDS/IPS Integration & Tuning | ⏸️ Deferred — Pending student intake |
 
 ## Tech Stack
-- **Hypervisor:** Proxmox VE (Dell R440 + 20× Acer nodes)
+- **Hypervisor:** Proxmox VE (Dell R440 + 11× Acer nodes)
 - **Firewall / Routing:** OPNsense (pfSense migration in progress)
 - **Monitoring / XDR:** Wazuh (interim); Palo Alto XDR under evaluation
 - **Automation:** Terraform + Ansible + GitHub CI/CD + Python (Flask dashboard)

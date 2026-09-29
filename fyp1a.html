@@ -114,7 +114,7 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
     <div class="info-block">
       <div class="block-label">RESEARCH QUESTIONS</div>
       <ol class="research-q-list">
-        <li contenteditable="true">How can a single Dell R440 server serve as a centralised image repository for 20 edge Proxmox nodes simultaneously?</li>
+        <li contenteditable="true">How can a single Dell R440 server serve as a centralised image repository for the Acer edge Proxmox nodes (10 Ceph nodes + 1 T-Pot host) simultaneously?</li>
         <li contenteditable="true">What thin-provisioning and snapshot strategy minimises storage consumption while supporting rapid VM rollback?</li>
         <li contenteditable="true">What are the minimum VM specifications (RAM, vCPU, disk) needed for each course type to function adequately on Acer hardware?</li>
       </ol>
@@ -125,7 +125,7 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
     <div class="info-block">
       <div class="block-label">SCOPE &amp; TASKS</div>
       <ol class="scope-list">
-        <li><span class="num">01</span><span contenteditable="true">Install and configure Proxmox VE on Dell R440 and connect the initial 10× Acer Predator test bed as edge nodes (DONE as of Sep 2026); partition storage for image repository vs running VMs.</span></li>
+        <li><span class="num">01</span><span contenteditable="true">Install and configure Proxmox VE on Dell R440 and connect the 11× Acer Predator nodes (10 Ceph cluster nodes, 1 dedicated to T-Pot) (DONE as of Sep 2026); partition storage for image repository vs running VMs.</span></li>
         <li><span class="num">02</span><span contenteditable="true">Create 7 golden VM images: Ubuntu Server 22.04, Windows Server 2022 + AD, DVWA, Kali Linux 2024, OPNsense, Docker Host, Windows 10 workstation. Build order: Ubuntu, Kali, DVWA first (cover most classes); the rest follow as time allows. Keep a spare-capacity note for a T-Pot host (FYP-3A).</span></li>
         <li><span class="num">03</span><span contenteditable="true">Implement thin provisioning (Proxmox linked clones) and automated daily snapshot strategy.</span></li>
         <li><span class="num">04</span><span contenteditable="true">Document image creation SOP and produce capacity planning report (max concurrent VMs given RAM/storage).</span></li>
