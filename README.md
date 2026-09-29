@@ -25,7 +25,6 @@ Browse the live project site: https://ljkh00.github.io/labeye
 | [FYP-2C](fyp2c.html) | Blue Team Defence Lab | ✅ Active |
 | [FYP-3A](fyp3a.html) | Honeypot Deployment & Threat Intelligence | ✅ Active |
 | [FYP-3B](fyp3b.html) | IDS/IPS Integration & Tuning | ⏸️ Deferred — Pending student intake |
-| [FYP-3C](fyp3c.html) | Lab Orchestration Portal | ⏸️ Deferred — Pending student intake |
 
 ## Tech Stack
 - **Hypervisor:** Proxmox VE (Dell R440 + 20× Acer nodes)

@@ -62,8 +62,6 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
 .research-q-list li::before{content:'RQ' counter(rq);font-family:'Space Grotesk',sans-serif;font-size:.6rem;padding:.2rem .4rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);flex-shrink:0;margin-top:.1rem}
 .method-tags{display:flex;flex-wrap:wrap;gap:.4rem}
 .method-tag{font-family:'Space Grotesk',sans-serif;font-size:.65rem;padding:.25rem .6rem;border-radius:3px;border:1px solid}
-.edit-hint{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:.75rem 1rem;font-family:'Space Grotesk',sans-serif;font-size:.65rem;color:var(--muted);max-width:220px;line-height:1.5;z-index:200}
-.edit-hint span{color:var(--c2a)}
 @media(max-width:768px){.section-grid{grid-template-columns:1fr}.section-grid.three{grid-template-columns:1fr}.candidate-header{flex-direction:column}.nav-tabs{flex-wrap:wrap}header{height:auto;padding:.75rem 1rem;flex-wrap:wrap}}
 
 </style>
@@ -84,7 +82,6 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
     <a class="nav-tab" href="fyp2c.html" style="color:var(--c2c)">2C</a>
     <a class="nav-tab" href="fyp3a.html" style="color:var(--c3a)">3A</a>
     <a class="nav-tab" href="fyp3b.html" style="color:var(--c3b)">3B</a>
-    <a class="nav-tab" href="fyp3c.html" style="color:var(--c3c)">3C</a>
   </nav>
 </header>
 
@@ -128,8 +125,8 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
     <div class="info-block">
       <div class="block-label">SCOPE &amp; TASKS</div>
       <ol class="scope-list">
-        <li><span class="num">01</span><span contenteditable="true">Install and configure Proxmox VE on Dell R440; partition storage for image repository vs running VMs.</span></li>
-        <li><span class="num">02</span><span contenteditable="true">Create 7 golden VM images: Ubuntu Server 22.04, Windows Server 2022 + AD, DVWA, Kali Linux 2024, OPNsense, Docker Host, Windows 10 workstation.</span></li>
+        <li><span class="num">01</span><span contenteditable="true">Install and configure Proxmox VE on Dell R440 and connect the initial 10× Acer Predator test bed as edge nodes (DONE as of Sep 2026); partition storage for image repository vs running VMs.</span></li>
+        <li><span class="num">02</span><span contenteditable="true">Create 7 golden VM images: Ubuntu Server 22.04, Windows Server 2022 + AD, DVWA, Kali Linux 2024, OPNsense, Docker Host, Windows 10 workstation. Build order: Ubuntu, Kali, DVWA first (cover most classes); the rest follow as time allows. Keep a spare-capacity note for a T-Pot host (FYP-3A).</span></li>
         <li><span class="num">03</span><span contenteditable="true">Implement thin provisioning (Proxmox linked clones) and automated daily snapshot strategy.</span></li>
         <li><span class="num">04</span><span contenteditable="true">Document image creation SOP and produce capacity planning report (max concurrent VMs given RAM/storage).</span></li>
         <li><span class="num">05</span><span contenteditable="true">Build and test backup/restore automation scripts; measure boot time benchmarks per image type.</span></li>
@@ -174,7 +171,7 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
   <div class="info-block">
     <div class="block-label">DELIVERABLES &amp; STATUS</div>
     <div class="deliverable-grid">
-      <div class="deliverable-item"><div class="check"></div>VM template repository on Dell R440<span class="status-badge planned">PLANNED</span></div>
+      <div class="deliverable-item"><div class="check"></div>VM template repository on Dell R440<span class="status-badge wip">WIP</span></div>
       <div class="deliverable-item"><div class="check"></div>Image creation documentation (step-by-step guides)<span class="status-badge planned">PLANNED</span></div>
       <div class="deliverable-item"><div class="check"></div>Snapshot / rollback automation scripts<span class="status-badge planned">PLANNED</span></div>
       <div class="deliverable-item"><div class="check"></div>Capacity planning report<span class="status-badge planned">PLANNED</span></div>
@@ -184,13 +181,8 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
 
   <div class="info-block" style="margin-top:1.25rem;border-left:3px solid var(--c1a)">
     <div class="block-label">HOW THIS SECTION ENABLES OTHERS</div>
-    <div class="editable" contenteditable="true">FYP-1C (Automation) cannot push images without the image repository. FYP-2A/2B/2C cannot run exercises without the VM templates. FYP-3C (Portal) integrates with the Proxmox API that I configure. My golden images define what every student in every class works with — this is the foundational layer.</div>
+    <div class="editable" contenteditable="true">FYP-1C (Automation) cannot push images without the image repository. FYP-2A/2B/2C cannot run exercises without the VM templates. FYP-2A (LabEye) reads the Proxmox API that I configure and deploys from my templates via 1C. FYP-3A (Honeypot) runs on a T-Pot VM built on the same Proxmox base, and FYP-3B (IDS/IPS) tunes against traffic from these images. There is no separate portal phase: LabEye (2A) is the dashboard and deploy front-end, so I keep the API and template naming stable for it. My golden images define what every student in every class works with — this is the foundational layer.</div>
   </div>
-</div>
-<div class="edit-hint">
-  <span>✏ EDITABLE</span><br>
-  Click any grey text block or name field to edit directly in the browser.<br><br>
-  Click <span>status badges</span> to cycle: PLANNED → WIP → DONE
 </div>
 <script>
 document.addEventListener('click', function(e) {

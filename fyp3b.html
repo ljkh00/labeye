@@ -62,8 +62,6 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
 .research-q-list li::before{content:'RQ' counter(rq);font-family:'Space Grotesk',sans-serif;font-size:.6rem;padding:.2rem .4rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);flex-shrink:0;margin-top:.1rem}
 .method-tags{display:flex;flex-wrap:wrap;gap:.4rem}
 .method-tag{font-family:'Space Grotesk',sans-serif;font-size:.65rem;padding:.25rem .6rem;border-radius:3px;border:1px solid}
-.edit-hint{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:.75rem 1rem;font-family:'Space Grotesk',sans-serif;font-size:.65rem;color:var(--muted);max-width:220px;line-height:1.5;z-index:200}
-.edit-hint span{color:var(--c2a)}
 @media(max-width:768px){.section-grid{grid-template-columns:1fr}.section-grid.three{grid-template-columns:1fr}.candidate-header{flex-direction:column}.nav-tabs{flex-wrap:wrap}header{height:auto;padding:.75rem 1rem;flex-wrap:wrap}}
 
 </style>
@@ -84,7 +82,6 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
     <a class="nav-tab" href="fyp2c.html" style="color:var(--c2c)">2C</a>
     <a class="nav-tab" href="fyp3a.html" style="color:var(--c3a)">3A</a>
     <a class="nav-tab active" href="fyp3b.html" style="color:var(--c3b)">3B</a>
-    <a class="nav-tab" href="fyp3c.html" style="color:var(--c3c)">3C</a>
   </nav>
 </header>
 
@@ -120,14 +117,14 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
   <div class="section-grid">
     <div class="info-block">
       <div class="block-label">PROBLEM STATEMENT</div>
-      <div class="editable" contenteditable="true">The lab's OPNsense gateway has no active intrusion detection or prevention capability. Red Team attacks pass through the network perimeter undetected and uninspected. Without an IDS/IPS tuned to the lab's specific attack scenarios, no network-layer detection is possible — and the Palo Alto XDR cloud dependency adds a licensing cost risk.</div>
+      <div class="editable" contenteditable="true">The lab's OPNsense gateway has no active intrusion detection or prevention capability. Red Team attacks pass through the network perimeter undetected and uninspected. Without an IDS/IPS tuned to the lab's specific attack scenarios, no network-layer detection is possible. Wazuh (1B/2A/2C) already covers host and log data, so this project covers only the network layer — and the Palo Alto XDR cloud dependency adds a licensing cost risk.</div>
     </div>
     <div class="info-block">
       <div class="block-label">RESEARCH QUESTIONS</div>
       <ol class="research-q-list">
         <li contenteditable="true">How should Suricata be deployed (inline IPS vs TAP IDS) within OPNsense to balance detection coverage with performance overhead at 1 Gbps throughput?</li>
-        <li contenteditable="true">What custom Suricata rules are needed to reliably detect the 7 attack scenarios defined in FYP-2B without generating excessive false positives?</li>
-        <li contenteditable="true">How can Suricata alerts be integrated with the FYP-2A SIEM to enable correlated incident detection across network and host layers?</li>
+        <li contenteditable="true">What custom Suricata rules are needed to reliably detect the ATT&amp;CK-mapped scenarios delivered by FYP-2B without generating excessive false positives?</li>
+        <li contenteditable="true">How can Suricata alerts reach the existing Wazuh deployment (1B / 2A / 2C) with the least new plumbing, so network and host alerts can be correlated?</li>
       </ol>
     </div>
   </div>
@@ -137,9 +134,9 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
       <div class="block-label">SCOPE &amp; TASKS</div>
       <ol class="scope-list">
         <li><span class="num">01</span><span contenteditable="true">Deploy Suricata inside OPNsense — evaluate inline IPS mode vs TAP mode for the lab environment; document trade-offs.</span></li>
-        <li><span class="num">02</span><span contenteditable="true">Write custom detection rules for each FYP-2B attack scenario: Metasploit signatures, SQL injection patterns, Nmap scan detection, C2 communication patterns.</span></li>
+        <li><span class="num">02</span><span contenteditable="true">Write custom detection rules for the FYP-2B scenarios (rule set kept small and versioned): Metasploit signatures, SQL injection patterns, Nmap scan detection, C2 communication patterns.</span></li>
         <li><span class="num">03</span><span contenteditable="true">Performance tune Suricata: whitelist legitimate lab management traffic, optimise rule set to maintain &lt;5% CPU overhead.</span></li>
-        <li><span class="num">04</span><span contenteditable="true">Configure Suricata alert forwarding to FYP-2A SIEM (Wazuh/Filebeat pipeline).</span></li>
+        <li><span class="num">04</span><span contenteditable="true">Forward Suricata alerts into the existing Wazuh manager (eve.json via the Wazuh agent on OPNsense or a syslog input). Wazuh is not rebuilt here; 3B only adds the network-layer source and any 2C-style custom rules/decoders it needs.</span></li>
         <li><span class="num">05</span><span contenteditable="true">Create rule management SOP — how to add/update/disable rules as new attack scenarios are introduced.</span></li>
       </ol>
     </div>
@@ -189,11 +186,6 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
     <div class="block-label">HOW MY WORK ENABLES OTHERS</div>
     <div class="editable" contenteditable="true">My IDS/IPS adds a network-layer detection capability that FYP-2A's host-based SIEM alone cannot provide. By forwarding Suricata alerts into the SIEM, I enable correlated detection — a single attack triggers both host and network alerts simultaneously. My custom rule library can be extended in future semesters as new FYP-2B attack scenarios are added. I effectively make the lab's detection architecture complete.</div>
   </div>
-</div>
-<div class="edit-hint">
-  <span>✏ EDITABLE</span><br>
-  Click any grey text block or name field to edit directly in the browser.<br><br>
-  Click <span>status badges</span> to cycle: PLANNED → WIP → DONE
 </div>
 <script>
 document.addEventListener('click', function(e) {
