@@ -166,7 +166,6 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;
     <a class="nav-tab" href="fyp2c.html" style="color:var(--c2c)">2C</a>
     <a class="nav-tab active" href="fyp3a.html" style="color:var(--c3a)">3A</a>
     <a class="nav-tab" href="fyp3b.html" style="color:var(--c3b)">3B</a>
-    <a class="nav-tab" href="fyp3c.html" style="color:var(--c3c)">3C</a>
   </nav>
 </header>
 
@@ -345,6 +344,20 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;
         real attacker activity in the isolated lab.</p>
       <div class="pulse"><span class="d"></span> System live · 127.0.0.1:8088</div>
     </div>
+  </div>
+
+  <div class="section" id="fit">
+    <div class="section-head">
+      <span class="section-num">06</span><span class="section-title">Place in the Lab</span>
+      <span class="section-sub">how 3A connects to the other FYPs</span>
+    </div>
+    <ul>
+      <li><strong>1B</strong> — T-Pot sits in the isolated VLAN with no route to real systems.</li>
+      <li><strong>1A</strong> — the T-Pot host runs as a VM on the same Proxmox base.</li>
+      <li><strong>2A</strong> — honeypot events can be forwarded to Wazuh so LabEye shows them alongside lab alerts.</li>
+      <li><strong>2C</strong> — captured sessions are real-attacker material for Blue Team log-analysis exercises.</li>
+      <li><strong>3B</strong> — attack patterns seen here are candidates for Suricata rules.</li>
+    </ul>
   </div>
 
   <div class="foot">

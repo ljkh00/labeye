@@ -54,7 +54,6 @@
 [data-theme="light"] .scope-table tbody tr:nth-child(even) td,[data-theme="light"] .research-table tbody tr:nth-child(even) td{background:rgba(232,234,240,.55)}
 [data-theme="light"] .scope-table tbody tr:hover td,[data-theme="light"] .research-table tbody tr:hover td{background:rgba(254,101,30,.12)!important}
 /* misc */
-[data-theme="light"] .edit-hint{color:var(--muted)}
 [data-theme="light"] #lightbox{background:rgba(193,198,215,.92)}
 #theme-toggle{font-family:'Space Grotesk',sans-serif;font-size:.65rem;letter-spacing:.08em;padding:.3rem .65rem;border-radius:3px;cursor:pointer;white-space:nowrap;background:none;transition:color .2s,border-color .2s;flex-shrink:0}
 html{font-size:112%}
@@ -126,8 +125,6 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
 .research-q-list li::before{content:'RQ' counter(rq);font-family:'Space Grotesk',sans-serif;font-size:.6rem;padding:.2rem .4rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);flex-shrink:0;margin-top:.1rem}
 .method-tags{display:flex;flex-wrap:wrap;gap:.4rem}
 .method-tag{font-family:'Space Grotesk',sans-serif;font-size:.65rem;padding:.25rem .6rem;border-radius:3px;border:1px solid}
-.edit-hint{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:.75rem 1rem;font-family:'Space Grotesk',sans-serif;font-size:.65rem;color:var(--muted);max-width:220px;line-height:1.5;z-index:200}
-.edit-hint span{color:var(--c2a)}
 .scope-table{width:calc(100% - 2.5rem);border-collapse:collapse;font-size:.85rem;margin:0 1.25rem 1.25rem 1.25rem}
 .scope-table th{background:linear-gradient(90deg, rgba(28,31,41,0.9) 0%, rgba(28,31,41,0.95) 100%);border:1px solid var(--border);padding:1rem .75rem;text-align:left;font-family:'Space Grotesk',sans-serif;font-size:.75rem;letter-spacing:.05em;color:var(--c3a);text-transform:uppercase;font-weight:700;border-bottom:2px solid var(--c3a)}
 .scope-table td{border:1px solid var(--border);padding:1rem .75rem;color:var(--text);line-height:1.6}
@@ -196,7 +193,6 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
     <a class="nav-tab" href="fyp2c.html" style="color:var(--c2c)">2C</a>
     <a class="nav-tab" href="fyp3a.html" style="color:var(--c3a)">3A</a>
     <a class="nav-tab" href="fyp3b.html" style="color:var(--c3b)">3B</a>
-    <a class="nav-tab" href="fyp3c.html" style="color:var(--c3c)">3C</a>
   </nav>
   <button id="theme-toggle" onclick="toggleTheme()"></button>
 </header>
@@ -691,11 +687,6 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
   <div style="margin-top:.6rem;font-family:'Space Grotesk',sans-serif;font-size:.6rem;color:var(--muted)">scroll to zoom · drag to pan · click outside to close</div>
 </div>
 
-<div class="edit-hint">
-  <span>✏ EDITABLE</span><br>
-  Click any grey text block or name field to edit directly in the browser.<br><br>
-  Click <span>status badges</span> to cycle: PLANNED → WIP → DONE
-</div>
 <script>
 // Lightbox with pan + zoom
 (function(){

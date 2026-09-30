@@ -46,7 +46,7 @@
   .arch-node ul li::before{content:'›';color:var(--muted)}
   .vlan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:.8rem}
   .vlan-pill{font-family:'Space Grotesk',sans-serif;font-size:.62rem;padding:.3rem .5rem;border-radius:3px;text-align:center;border:1px solid}
-  .dep-matrix{display:grid;grid-template-columns:80px repeat(9,1fr);gap:2px;font-family:'Space Grotesk',sans-serif;font-size:.6rem}
+  .dep-matrix{display:grid;grid-template-columns:80px repeat(8,1fr);gap:2px;font-family:'Space Grotesk',sans-serif;font-size:.6rem}
   .dep-cell{padding:.3rem;text-align:center;border-radius:2px;display:flex;align-items:center;justify-content:center}
   .dep-cell.header{color:var(--muted)}
   .dep-cell.self{background:var(--border)}
@@ -126,7 +126,6 @@
     <a class="nav-tab" href="fyp2c.html" style="color:var(--c2c)">2C</a>
     <a class="nav-tab" href="fyp3a.html" style="color:var(--c3a)">3A</a>
     <a class="nav-tab" href="fyp3b.html" style="color:var(--c3b)">3B</a>
-    <a class="nav-tab" href="fyp3c.html" style="color:var(--c3c)">3C</a>
   </nav>
 </header>
 
@@ -284,7 +283,7 @@
       <text x="56" y="344" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="8.5" fill="#3C90FF">MASTER NODE</text>
       <!-- title -->
       <text x="132" y="368" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-weight="700" font-size="17" fill="#DFE2EF">Dell R440</text>
-      <text x="132" y="384" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="8" fill="#8B90A1">64 GB RAM  ·  3 TB HDD  ·  Proxmox VE</text>
+      <text x="132" y="384" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="8" fill="#8B90A1">128 GB RAM  ·  3 TB HDD  ·  Proxmox VE</text>
       <!-- specs -->
       <g font-family="'Inter',sans-serif" font-size="11.5" fill="#C1C6D7">
         <text x="23" y="404"><tspan fill="#3C90FF">›</tspan>  VM Golden Image Repository</text>
@@ -310,7 +309,7 @@
       <rect x="369" y="332" width="102" height="16" rx="2" fill="rgba(177,102,255,.1)" stroke="rgba(177,102,255,.35)" stroke-width="1"/>
       <text x="420" y="344" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="8.5" fill="#B166FF">EDGE HYPERVISORS</text>
       <!-- title -->
-      <text x="480" y="368" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-weight="700" font-size="17" fill="#DFE2EF">10× Acer Predator</text>
+      <text x="480" y="368" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-weight="700" font-size="17" fill="#DFE2EF">11× Acer Predator</text>
       <text x="480" y="384" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="8" fill="#8B90A1">Proxmox VE  ·  1 IP per node  ·  VLAN 40</text>
       <!-- specs -->
       <g font-family="'Inter',sans-serif" font-size="11.5" fill="#C1C6D7">
@@ -424,61 +423,15 @@
 <div class="arch-section">
   <div class="section-label">INTER-PROJECT DEPENDENCY MATRIX</div>
   <div class="dep-matrix">
-    <div class="dep-cell header"></div>
-    <div class="dep-cell header" style="color:var(--c1a)">1A</div>
-    <div class="dep-cell header" style="color:var(--c1b)">1B</div>
-    <div class="dep-cell header" style="color:var(--c1c)">1C</div>
-    <div class="dep-cell header" style="color:var(--c2a)">2A</div>
-    <div class="dep-cell header" style="color:var(--c2b)">2B</div>
-    <div class="dep-cell header" style="color:var(--c2c)">2C</div>
-    <div class="dep-cell header" style="color:var(--c3a)">3A</div>
-    <div class="dep-cell header" style="color:var(--c3b)">3B</div>
-    <div class="dep-cell header" style="color:var(--c3c)">3C</div>
-
-    <div class="dep-cell header" style="color:var(--c1a)">1A</div>
-    <div class="dep-cell self">—</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div>
-    <div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div>
-    <div class="dep-cell feeds">→</div><div class="dep-cell empty"></div><div class="dep-cell feeds">→</div>
-
-    <div class="dep-cell header" style="color:var(--c1b)">1B</div>
-    <div class="dep-cell empty"></div><div class="dep-cell self">—</div><div class="dep-cell feeds">→</div>
-    <div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div>
-    <div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div>
-
-    <div class="dep-cell header" style="color:var(--c1c)">1C</div>
-    <div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell self">—</div>
-    <div class="dep-cell empty"></div><div class="dep-cell empty"></div><div class="dep-cell empty"></div>
-    <div class="dep-cell empty"></div><div class="dep-cell empty"></div><div class="dep-cell feeds">→</div>
-
-    <div class="dep-cell header" style="color:var(--c2a)">2A</div>
-    <div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div>
-    <div class="dep-cell self">—</div><div class="dep-cell empty"></div><div class="dep-cell feeds">→</div>
-    <div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div>
-
-    <div class="dep-cell header" style="color:var(--c2b)">2B</div>
-    <div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div>
-    <div class="dep-cell dep">←</div><div class="dep-cell self">—</div><div class="dep-cell feeds">↔</div>
-    <div class="dep-cell empty"></div><div class="dep-cell feeds">→</div><div class="dep-cell empty"></div>
-
-    <div class="dep-cell header" style="color:var(--c2c)">2C</div>
-    <div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div>
-    <div class="dep-cell dep">←</div><div class="dep-cell feeds">↔</div><div class="dep-cell self">—</div>
-    <div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell empty"></div>
-
-    <div class="dep-cell header" style="color:var(--c3a)">3A</div>
-    <div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div>
-    <div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell dep">←</div>
-    <div class="dep-cell self">—</div><div class="dep-cell feeds">→</div><div class="dep-cell empty"></div>
-
-    <div class="dep-cell header" style="color:var(--c3b)">3B</div>
-    <div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div>
-    <div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div>
-    <div class="dep-cell dep">←</div><div class="dep-cell self">—</div><div class="dep-cell empty"></div>
-
-    <div class="dep-cell header" style="color:var(--c3c)">3C</div>
-    <div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div>
-    <div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell empty"></div>
-    <div class="dep-cell empty"></div><div class="dep-cell empty"></div><div class="dep-cell self">—</div>
+    <div class="dep-cell header"></div><div class="dep-cell header" style="color:var(--c1a)">1A</div><div class="dep-cell header" style="color:var(--c1b)">1B</div><div class="dep-cell header" style="color:var(--c1c)">1C</div><div class="dep-cell header" style="color:var(--c2a)">2A</div><div class="dep-cell header" style="color:var(--c2b)">2B</div><div class="dep-cell header" style="color:var(--c2c)">2C</div><div class="dep-cell header" style="color:var(--c3a)">3A</div><div class="dep-cell header" style="color:var(--c3b)">3B</div>
+    <div class="dep-cell header" style="color:var(--c1a)">1A</div><div class="dep-cell self">—</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell empty"></div>
+    <div class="dep-cell header" style="color:var(--c1b)">1B</div><div class="dep-cell empty"></div><div class="dep-cell self">—</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div>
+    <div class="dep-cell header" style="color:var(--c1c)">1C</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell self">—</div><div class="dep-cell empty"></div><div class="dep-cell empty"></div><div class="dep-cell empty"></div><div class="dep-cell empty"></div><div class="dep-cell empty"></div>
+    <div class="dep-cell header" style="color:var(--c2a)">2A</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell self">—</div><div class="dep-cell empty"></div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div>
+    <div class="dep-cell header" style="color:var(--c2b)">2B</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell dep">←</div><div class="dep-cell self">—</div><div class="dep-cell feeds">↔</div><div class="dep-cell empty"></div><div class="dep-cell feeds">→</div>
+    <div class="dep-cell header" style="color:var(--c2c)">2C</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell dep">←</div><div class="dep-cell feeds">↔</div><div class="dep-cell self">—</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div>
+    <div class="dep-cell header" style="color:var(--c3a)">3A</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell dep">←</div><div class="dep-cell self">—</div><div class="dep-cell feeds">→</div>
+    <div class="dep-cell header" style="color:var(--c3b)">3B</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell self">—</div>
   </div>
   <div style="margin-top:.75rem;font-family:'Space Grotesk',sans-serif;font-size:.6rem;color:var(--muted);display:flex;gap:1.5rem;">
     <span><span style="color:var(--c1a)">→ feeds</span> = row output used by column</span>
