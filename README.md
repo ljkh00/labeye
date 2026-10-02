@@ -20,10 +20,10 @@ Browse the live project site: https://ljkh00.github.io/labeye
 | [FYP-1A](fyp1a.html) | Virtualisation Infrastructure & Image Management | ✅ Active — **Prerequisite for all phases** |
 | [FYP-1B](fyp1b.html) | Network Segmentation & Security Architecture | ✅ Active |
 | [FYP-1C](fyp1c.html) | Lab Automation Framework | ✅ Active |
-| [FYP-2A](fyp2a.html) | Security Monitoring Stack (Wazuh XDR) | ✅ Active |
-| [FYP-2B](fyp2b.html) | Red Team Attack Automation | ✅ Active |
+| [FYP-2A](fyp2a.html) | Security Dashboard | ✅ Active |
+| [FYP-2B](fyp2b.html) | Custom Provisioning VM Pipeline for Red Team | ✅ Active |
 | [FYP-2C](fyp2c.html) | Blue Team Defence Lab | ✅ Active |
-| [FYP-3A](fyp3a.html) | Honeypot Deployment & Threat Intelligence | ✅ Active |
+| [FYP-3A](fyp3a.html) | Reiteration of Honeypot Logs  | ✅ Active |
 | [FYP-3B](fyp3b.html) | IDS/IPS Integration & Tuning | ⏸️ Deferred — Pending student intake |
 
 ## Tech Stack
