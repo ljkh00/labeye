@@ -32,17 +32,24 @@ window.LINEAGE = {
   events: [
     // --- Seed entries: dates are when the scope was first published on this site.
     // --- Replace "TBC" / adjust dates to each cohort's real start month.
-    { fyp: "1A", date: "2026-04", type: "initiated", person: "TBC", note: "Scope published; prerequisite for all phases" },
-    { fyp: "1B", date: "2026-04", type: "initiated", person: "TBC", note: "Scope published" },
-    { fyp: "1C", date: "2026-04", type: "initiated", person: "TBC", note: "Scope published" },
-    { fyp: "2A", date: "2026-04", type: "initiated", person: "TBC", note: "Scope published" },
-    { fyp: "2B", date: "2026-04", type: "initiated", person: "TBC", note: "Scope published" },
-    { fyp: "2C", date: "2026-04", type: "initiated", person: "TBC", note: "Scope published" },
-    { fyp: "3A", date: "2026-04", type: "initiated", person: "TBC", note: "Scope published" },
+    { fyp: "1A", date: "2026-04", type: "initiated", person: "N/A", note: "Scope published; prerequisite for all phases" },
+    { fyp: "1B", date: "2026-04", type: "initiated", person: "Gan Ming Yan", note: "Scope published" },
+    { fyp: "1C", date: "2026-04", type: "initiated", person: "Lim Jun Zhe", note: "Scope published" },
+    { fyp: "2A", date: "2026-04", type: "initiated", person: "Loo Hong En", note: "Scope published" },
+    { fyp: "2B", date: "2026-04", type: "initiated", person: "Ng Khai Zhe", note: "Scope published" },
+    { fyp: "2C", date: "2026-04", type: "initiated", person: "Yee Shun Qi", note: "Scope published" },
+    { fyp: "3A", date: "2026-04", type: "initiated", person: "Lam Zhan Hong", note: "Scope published" },
     { fyp: "3B", date: "2026-04", type: "deferred",  person: "—",   note: "Scope defined; awaiting student intake" },
     { fyp: "3C", date: "2026-04", type: "initiated", person: "—",   note: "Scope published" },
     { fyp: "3C", date: "2026-09", type: "retired",   person: "—",   note: "Folded into 2A / 1C / 2B; ID not reused" },
-    { fyp: "3D", date: "2026-11", type: "initiated", person: "TBC", note: "Candidate identified; scope drafted" },
+    { fyp: "1A", date: "2026-10", type: "completed", person: "N/A", note: "Project completed" },
+    { fyp: "1B", date: "2026-10", type: "completed", person: "Gan Ming Yan", note: "Project completed" },
+    { fyp: "1C", date: "2026-10", type: "completed", person: "Lim Jun Zhe", note: "Project completed" },
+    { fyp: "2A", date: "2026-10", type: "completed", person: "Loo Hong En", note: "Project completed" },
+    { fyp: "2B", date: "2026-10", type: "completed", person: "Ng Khai Zhe", note: "Project completed" },
+    { fyp: "2C", date: "2026-10", type: "completed", person: "Yee Shun Qi", note: "Project completed" },
+    { fyp: "3A", date: "2026-10", type: "completed", person: "Lam Zhan Hong", note: "Project completed" },
+    { fyp: "3D", date: "2026-11", type: "initiated", person: "Talent #2", note: "Candidate identified; scope drafted" },
     { fyp: "3A", date: "2027-01", type: "planned",   person: "Talent #2", note: "Continue honeypot reiteration" }
   ]
 };
