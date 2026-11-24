@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FYP-3D Identity &amp; Access (AD) — SOC Lab FYP</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0f131c; --surface:#1C1F29; --panel:#1C1F29; --border:#414755;
+  --text:#C1C6D7; --muted:#8B90A1; --bright:#DFE2EF;
+  --c1a:#3C90FF; --c1b:#B166FF; --c1c:#FE651E;
+  --c2a:#A9C7FF; --c2b:#FC5844; --c2c:#60A5FA;
+  --c3a:#FDBA74; --c3b:#FFB598; --c3c:#4ADE80; --c3d:#F472B6;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+html{scrollbar-width:thin;scrollbar-color:#262A34 transparent}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-thumb{background:#262A34;border-radius:20px}
+::-webkit-scrollbar-track{background:transparent}
+header{border-bottom:1px solid var(--border);padding:0 2.5rem;position:sticky;top:0;z-index:100;background:var(--bg);display:flex;align-items:center;gap:1.5rem;height:60px}
+.logo-badge{font-family:'Space Grotesk',sans-serif;font-size:.75rem;letter-spacing:.06em;color:var(--c2a);border:1px solid var(--c2a);padding:.25rem .6rem;border-radius:3px;white-space:nowrap;text-decoration:none}
+header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:700;color:var(--bright);letter-spacing:.04em;flex:1}
+.nav-tabs{display:flex;gap:.25rem}
+.nav-tab{font-family:'Space Grotesk',sans-serif;font-size:.7rem;letter-spacing:.08em;padding:.35rem .75rem;border:1px solid transparent;border-radius:3px;cursor:pointer;background:none;color:var(--muted);transition:all .2s;white-space:nowrap;text-decoration:none;display:inline-block}
+.nav-tab:hover{color:var(--c2a);border-color:var(--border)}
+.nav-tab.active{color:var(--c2a);background:var(--panel);border-color:var(--border)}
+.candidate-page{max-width:960px;margin:0 auto;padding:2.5rem}
+.candidate-header{display:flex;align-items:flex-start;gap:1.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);margin-bottom:2rem}
+.candidate-badge{font-family:'Space Grotesk',sans-serif;font-size:2.2rem;font-weight:900;border:2px solid;border-radius:6px;padding:.5rem 1rem;white-space:nowrap;line-height:1;flex-shrink:0}
+.candidate-meta{flex:1}
+.candidate-meta .phase-tag{font-family:'Space Grotesk',sans-serif;font-size:.65rem;letter-spacing:.06em;margin-bottom:.4rem}
+.candidate-meta h2{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:900;line-height:1.1;color:var(--bright);margin-bottom:.5rem}
+.candidate-meta .course-tags{display:flex;gap:.4rem;flex-wrap:wrap}
+.course-tag{font-family:'Space Grotesk',sans-serif;font-size:.6rem;padding:.2rem .5rem;border:1px solid var(--border);border-radius:2px;color:var(--muted)}
+.candidate-name-block{background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;font-family:'Space Grotesk',sans-serif;font-size:.7rem;color:var(--muted)}
+.candidate-name-block strong{color:var(--bright);font-size:.8rem}
+.section-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.section-grid.full{grid-template-columns:1fr}
+.section-grid.three{grid-template-columns:1fr 1fr 1fr}
+.info-block{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:1.25rem;position:relative}
+.info-block .block-label{font-family:'Space Grotesk',sans-serif;font-size:.6rem;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem}
+.info-block .block-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.info-block .editable{font-size:.85rem;line-height:1.65;color:var(--text);min-height:60px;outline:none;border:1px dashed transparent;border-radius:3px;padding:.25rem;transition:border-color .2s}
+.info-block .editable:focus{border-color:var(--border)}
+.info-block .editable:empty::before{content:attr(data-placeholder);color:var(--muted);font-style:italic;pointer-events:none}
+.scope-list{list-style:none;font-size:.85rem;line-height:1.7}
+.scope-list li{display:flex;align-items:flex-start;gap:.5rem;padding:.3rem 0;border-bottom:1px solid var(--border)}
+.scope-list li:last-child{border-bottom:none}
+.scope-list li .num{font-family:'Space Grotesk',sans-serif;font-size:.65rem;color:var(--muted);padding-top:.15rem;flex-shrink:0}
+.deliverable-grid{display:grid;grid-template-columns:1fr;gap:.4rem}
+.deliverable-item{display:flex;align-items:center;gap:.6rem;font-size:.8rem;padding:.4rem .5rem;border:1px solid var(--border);border-radius:3px;background:var(--bg)}
+.deliverable-item .check{width:14px;height:14px;border-radius:2px;border:1px solid var(--border);flex-shrink:0}
+.status-badge{font-family:'Space Grotesk',sans-serif;font-size:.6rem;padding:.15rem .4rem;border-radius:2px;border:1px solid;margin-left:auto;cursor:pointer}
+.status-badge.planned{color:var(--muted);border-color:var(--muted)}
+.status-badge.wip{color:var(--c1c);border-color:var(--c1c)}
+.status-badge.done{color:var(--c2a);border-color:var(--c2a)}
+.research-q-list{list-style:none;counter-reset:rq}
+.research-q-list li{counter-increment:rq;display:flex;align-items:flex-start;gap:.75rem;padding:.65rem 0;border-bottom:1px solid var(--border);font-size:.85rem;line-height:1.5}
+.research-q-list li:last-child{border-bottom:none}
+.research-q-list li::before{content:'RQ' counter(rq);font-family:'Space Grotesk',sans-serif;font-size:.6rem;padding:.2rem .4rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);flex-shrink:0;margin-top:.1rem}
+.method-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.method-tag{font-family:'Space Grotesk',sans-serif;font-size:.65rem;padding:.25rem .6rem;border-radius:3px;border:1px solid}
+@media(max-width:768px){.section-grid{grid-template-columns:1fr}.section-grid.three{grid-template-columns:1fr}.candidate-header{flex-direction:column}.nav-tabs{flex-wrap:wrap}header{height:auto;padding:.75rem 1rem;flex-wrap:wrap}}
+
+</style>
+</head>
+<body>
+<header>
+  <a href="index.html" class="logo-badge">SOC-LAB-FYP</a>
+  <h1>Centralised Security Lab Transformation — Final Year Project Map</h1>
+  <nav class="nav-tabs">
+    <a class="nav-tab" href="index.html">Overview</a>
+    <a class="nav-tab" href="architecture.html">Architecture</a>
+    <a class="nav-tab" href="phases.html">Phase Map</a>
+    <a class="nav-tab" href="fyp1a.html" style="color:var(--c1a)">1A</a>
+    <a class="nav-tab" href="fyp1b.html" style="color:var(--c1b)">1B</a>
+    <a class="nav-tab" href="fyp1c.html" style="color:var(--c1c)">1C</a>
+    <a class="nav-tab" href="fyp2a.html" style="color:var(--c2a)">2A</a>
+    <a class="nav-tab" href="fyp2b.html" style="color:var(--c2b)">2B</a>
+    <a class="nav-tab" href="fyp2c.html" style="color:var(--c2c)">2C</a>
+    <a class="nav-tab" href="fyp3a.html" style="color:var(--c3a)">3A</a>
+    <a class="nav-tab" href="fyp3b.html" style="color:var(--c3b)">3B</a>
+    <a class="nav-tab active" href="fyp3d.html" style="color:var(--c3d)">3D</a>
+  </nav>
+</header>
+
+<div style="background:rgba(139,144,161,.15);border-bottom:1px solid var(--border);
+  padding:.75rem 2.5rem;display:flex;align-items:center;gap:.75rem;">
+  <span style="font-family:'Space Grotesk',sans-serif;font-size:.65rem;
+    letter-spacing:.05em;color:var(--muted);">
+    ◷ STATUS: SCOPING — Candidate identified (Nov 2026). Scope is a draft pending proposal approval.
+  </span>
+</div>
+
+<div class="candidate-page">
+  <div class="candidate-header">
+    <div class="candidate-badge" style="color:var(--c3d);border-color:var(--c3d)">FYP-3D</div>
+    <div class="candidate-meta">
+      <div class="phase-tag" style="color:var(--c3d)">PHASE 3 · ADVANCED · SEMESTER 3</div>
+      <h2>Identity &amp; Access Management — Active Directory RBAC</h2>
+      <div class="course-tags">
+        <span class="course-tag">System Security</span>
+        <span class="course-tag">Operating Systems</span>
+        <span class="course-tag">Data Comm &amp; Networking</span>
+        <span class="course-tag">AD DS · LDAPS · GPO</span>
+      </div>
+    </div>
+    <div class="candidate-name-block">
+      CANDIDATE<br>
+      <strong contenteditable="true">[ Student Name ]</strong><br>
+      <span style="font-size:.65rem">Supervisor: [ Supervisor Name ]</span>
+    </div>
+  </div>
+
+  <div class="section-grid">
+    <div class="info-block">
+      <div class="block-label">PROBLEM STATEMENT</div>
+      <div class="editable" contenteditable="true">Every lab service keeps its own accounts. LabEye has local JWT users, and Proxmox, OPNsense, Wazuh and the 20 Lenovo stations each have separate logins. Onboarding a cohort means creating accounts by hand in several places, offboarding is inconsistent, and nobody can say for certain who has access to which device. Shared admin passwords cannot be traced to a person. DNS is already set up on OPNsense, but it is undocumented and has no directory behind it. The lab needs one authoritative identity source with role-based access that a small team can run each semester.</div>
+    </div>
+    <div class="info-block">
+      <div class="block-label">RESEARCH QUESTIONS</div>
+      <ol class="research-q-list">
+        <li contenteditable="true">How should an AD-based RBAC model (OU, group and tier design) be structured so that a single semester's cohort of students, lecturers and admins gets least-privilege access across heterogeneous lab services?</li>
+        <li contenteditable="true">How can AD DNS coexist with the existing OPNsense resolver without breaking name resolution on the other lab VLANs?</li>
+        <li contenteditable="true">To what extent does centralised identity cut the time spent on account administration each semester and improve auditability, compared with the current per-service accounts?</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="section-grid full">
+    <div class="info-block">
+      <div class="block-label">SCOPE &amp; TASKS</div>
+      <ol class="scope-list">
+        <li><span class="num">01</span><span contenteditable="true">Deploy a Windows Server 2022 domain controller (one primary, plus a second DC as a stretch goal) as a VM on the Dell R440 from the FYP-1A golden image. Use the Azure Dev Tools for Teaching licence or the 180-day evaluation. Keep a local break-glass admin account on every integrated system so the lab still runs when the DC is down.</span></li>
+        <li><span class="num">02</span><span contenteditable="true">Integrate DNS with the OPNsense setup that already exists: AD-integrated DNS is authoritative for the lab's internal AD zone, and OPNsense Unbound conditionally forwards that zone to the DCs and keeps resolving everything else. Document the as-built DNS, which is currently missing from the site.</span></li>
+        <li><span class="num">03</span><span contenteditable="true">Design the RBAC model: an OU structure plus security groups (e.g. LAB-Students, LAB-Lecturers, LAB-Admins, and course groups such as CRS-NetSec), with a role-to-permission matrix covering every platform service. Use AGDLP-style nesting and a tiered admin model (Tier 0 DC/infra, Tier 1 servers, Tier 2 workstations).</span></li>
+        <li><span class="num">04</span><span contenteditable="true">Connect LabEye (FYP-2A) to AD over LDAPS: AD group membership maps to the existing JWT roles (RequireRole), replacing local accounts. Students and lecturers log in with their lab domain accounts.</span></li>
+        <li><span class="num">05</span><span contenteditable="true">Join the 20 Lenovo stations to the domain and apply baseline GPOs (password/lockout policy, logon banner, restricted local admin, LAPS for local admin passwords).</span></li>
+        <li><span class="num">06</span><span contenteditable="true">Stretch: put Proxmox VE (AD realm with group sync), the OPNsense admin GUI (LDAP auth server) and the Wazuh dashboard (OpenSearch LDAP backend) behind AD groups, so staff use one identity to reach every lab device.</span></li>
+        <li><span class="num">07</span><span contenteditable="true">Forward DC security events (4624/4625/4720/4728/4740, etc.) to the existing Wazuh manager through the Wazuh agent, and write a short set of identity-abuse detection rules (brute force, privileged-group changes, after-hours admin logons).</span></li>
+        <li><span class="num">08</span><span contenteditable="true">Write semester operations SOPs: bulk student onboarding and offboarding from a CSV class list (PowerShell), password-reset flow, DC backup/restore with System State plus Proxmox snapshots, and an end-of-semester account purge.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="section-grid full">
+    <div class="info-block" style="border-left:3px solid var(--c1c)">
+      <div class="block-label">OUT OF SCOPE / GUARDRAILS</div>
+      <ul style="list-style:none;font-size:.8rem;line-height:1.7">
+        <li style="padding:.25rem 0;border-bottom:1px solid var(--border)"><strong>No shared AD with attack labs.</strong> The production identity domain must never be reachable from Red/Blue lab segments. Vulnerable AD targets for 2B/2C (Kerberoasting, etc.) are separate throwaway forests from golden images.</li>
+        <li style="padding:.25rem 0;border-bottom:1px solid var(--border)">No federation with the university's campus AD or Entra ID in this project. Campus IT approval is a future phase.</li>
+        <li style="padding:.25rem 0;border-bottom:1px solid var(--border)">No Azure AD / Entra ID licences and no paid PAM tooling.</li>
+        <li style="padding:.25rem 0">The pfSense migration is not in scope. LDAP auth is configured on the firewall that is live during the project.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-grid three">
+    <div class="info-block">
+      <div class="block-label">METHODOLOGY</div>
+      <div class="method-tags">
+        <span class="method-tag" style="color:var(--c3d);border-color:var(--c3d)">Design Science</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">Access-Control Matrix</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">Before/After Admin-Time Study</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">UAT with Lecturers</span>
+      </div>
+    </div>
+    <div class="info-block">
+      <div class="block-label">TOOLS &amp; TECHNOLOGY</div>
+      <div class="method-tags">
+        <span class="method-tag" style="color:var(--c3d);border-color:var(--c3d)">AD DS</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">Windows Server 2022</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">AD DNS</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">LDAPS / AD CS</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">Group Policy · LAPS</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">PowerShell</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">OPNsense Unbound</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">Wazuh agent</span>
+      </div>
+    </div>
+    <div class="info-block">
+      <div class="block-label">COURSE ALIGNMENT</div>
+      <ul style="list-style:none;font-size:.8rem">
+        <li style="padding:.25rem 0;border-bottom:1px solid var(--border)">System Security — access control, authentication</li>
+        <li style="padding:.25rem 0;border-bottom:1px solid var(--border)">Operating Systems — Windows Server, users &amp; permissions</li>
+        <li style="padding:.25rem 0;border-bottom:1px solid var(--border)">Data Comm &amp; Networking — DNS, directory services</li>
+        <li style="padding:.25rem 0">Computer Security — RBAC / least privilege models</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-grid">
+    <div class="info-block">
+      <div class="block-label">DEPENDENCIES</div>
+      <ul style="list-style:none;font-size:.8rem;line-height:1.7">
+        <li style="padding:.25rem 0;border-bottom:1px solid var(--border)"><strong style="color:var(--c1a)">1A</strong> — Windows Server golden image</li>
+        <li style="padding:.25rem 0;border-bottom:1px solid var(--border)"><strong style="color:var(--c1b)">1B</strong> — management segment placement, OPNsense DNS/firewall rules</li>
+        <li style="padding:.25rem 0;border-bottom:1px solid var(--border)"><strong style="color:var(--c2a)">2A</strong> — LabEye RBAC (JWT roles) to be mapped to AD groups</li>
+        <li style="padding:.25rem 0"><strong style="color:var(--c2c)">2C</strong> — existing Wazuh manager receives DC events</li>
+      </ul>
+    </div>
+    <div class="info-block">
+      <div class="block-label">SUGGESTED 2-SEMESTER PACING</div>
+      <ul style="list-style:none;font-size:.8rem;line-height:1.7">
+        <li style="padding:.25rem 0;border-bottom:1px solid var(--border)"><strong>FYP1:</strong> RBAC design + matrix, DC build, DNS integration, as-built doc, proposal/ToR</li>
+        <li style="padding:.25rem 0;border-bottom:1px solid var(--border)"><strong>FYP2 (core):</strong> LabEye LDAPS, Lenovo domain join + GPO/LAPS, onboarding scripts</li>
+        <li style="padding:.25rem 0;border-bottom:1px solid var(--border)"><strong>FYP2 (stretch):</strong> Proxmox / OPNsense / Wazuh AD auth, detection rules</li>
+        <li style="padding:.25rem 0"><strong>Exit:</strong> runbooks into handover pack; admin-time before/after evaluation</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="info-block">
+    <div class="block-label">DELIVERABLES &amp; STATUS</div>
+    <div class="deliverable-grid">
+      <div class="deliverable-item"><div class="check"></div>Production lab domain controller with AD-integrated DNS<span class="status-badge planned">PLANNED</span></div>
+      <div class="deliverable-item"><div class="check"></div>OPNsense ↔ AD DNS integration (conditional forwarding) and as-built DNS doc<span class="status-badge planned">PLANNED</span></div>
+      <div class="deliverable-item"><div class="check"></div>RBAC design: OU/group model + role-permission matrix<span class="status-badge planned">PLANNED</span></div>
+      <div class="deliverable-item"><div class="check"></div>LabEye (2A) LDAPS login with group-to-role mapping<span class="status-badge planned">PLANNED</span></div>
+      <div class="deliverable-item"><div class="check"></div>Domain-joined Lenovo stations + baseline GPO/LAPS<span class="status-badge planned">PLANNED</span></div>
+      <div class="deliverable-item"><div class="check"></div>Proxmox / OPNsense / Wazuh AD authentication (stretch)<span class="status-badge planned">PLANNED</span></div>
+      <div class="deliverable-item"><div class="check"></div>DC event forwarding to Wazuh + identity detection rules<span class="status-badge planned">PLANNED</span></div>
+      <div class="deliverable-item"><div class="check"></div>Onboarding/offboarding PowerShell scripts + DC backup/restore runbook<span class="status-badge planned">PLANNED</span></div>
+    </div>
+  </div>
+
+  <div class="info-block" style="margin-top:1.25rem;border-left:3px solid var(--c3d)">
+    <div class="block-label">HOW MY WORK ENABLES OTHERS</div>
+    <div class="editable" contenteditable="true">I give the lab one identity spine. LabEye (2A) stops managing its own users, lecturers get per-course access through group membership instead of shared passwords, and every admin action on Proxmox, OPNsense and Wazuh can be traced to a named account. DC security logs give 2C and 3B a new identity-layer detection source. Onboarding scripts turn the start-of-semester account setup into a single step, which is what makes the lab sustainable for whoever inherits it next.</div>
+  </div>
+</div>
+<script>
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('status-badge')) {
+    const cycle = ['planned', 'wip', 'done'];
+    for (let i = 0; i < cycle.length; i++) {
+      if (e.target.classList.contains(cycle[i])) {
+        e.target.classList.remove(cycle[i]);
+        const next = cycle[(i + 1) % cycle.length];
+        e.target.classList.add(next);
+        e.target.textContent = next.toUpperCase();
+        return;
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

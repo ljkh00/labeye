@@ -11,7 +11,7 @@
     --text:#C1C6D7; --muted:#8B90A1; --bright:#DFE2EF;
     --c1a:#3C90FF; --c1b:#B166FF; --c1c:#FE651E;
     --c2a:#A9C7FF; --c2b:#FC5844; --c2c:#60A5FA;
-    --c3a:#FDBA74; --c3b:#FFB598; --c3c:#4ADE80;
+    --c3a:#FDBA74; --c3b:#FFB598; --c3c:#4ADE80; --c3d:#F472B6;
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
@@ -60,7 +60,8 @@
   .dot{width:6px;height:6px;border-radius:50%;display:inline-block}
   .dot.c1a{background:var(--c1a)}.dot.c1b{background:var(--c1b)}.dot.c1c{background:var(--c1c)}
   .dot.c2a{background:var(--c2a)}.dot.c2b{background:var(--c2b)}.dot.c2c{background:var(--c2c)}
-  .dot.c3a{background:var(--c3a)}.dot.c3b{background:var(--c3b)}.dot.c3c{background:var(--c3c)}
+  .dot.c3a{background:var(--c3a)}.dot.c3b{background:var(--c3b)}.dot.c3c{background:var(--c3c)}.dot.c3d{background:var(--c3d)}
+  .fyp-card.c3d::before{background:var(--c3d)}.fyp-card.c3d .fyp-id{color:var(--c3d)}
   .fyp-card.deferred {
     opacity: 0.45;
     filter: grayscale(60%);
@@ -108,6 +109,7 @@
     <a class="nav-tab" href="fyp2c.html" style="color:var(--c2c)">2C</a>
     <a class="nav-tab" href="fyp3a.html" style="color:var(--c3a)">3A</a>
     <a class="nav-tab" href="fyp3b.html" style="color:var(--c3b)">3B</a>
+    <a class="nav-tab" href="fyp3d.html" style="color:var(--c3d)">3D</a>
   </nav>
 </header>
 
@@ -183,6 +185,12 @@
       <h4>IDS/IPS Integration &amp; Tuning</h4>
       <p>Suricata in OPNsense; custom rules for lab attack signatures; alerts into the existing Wazuh; false-positive tuning.</p>
       <div class="team-badge"><span class="dot c3b"></span>2–3 students · Network Security / System Security</div>
+    </a>
+    <a class="fyp-card c3d" href="fyp3d.html">
+      <div class="fyp-id">FYP-3D</div>
+      <h4>Identity &amp; Access — Active Directory RBAC</h4>
+      <p>Lab AD DS + DNS integrated with OPNsense; group-based RBAC for LabEye, Proxmox, OPNsense, Wazuh and Lenovo stations.</p>
+      <div class="team-badge"><span class="dot c3d"></span>1–2 students · System Security / OS</div>
     </a>
   </div>
 </div>
