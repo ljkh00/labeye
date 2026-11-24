@@ -49,7 +49,7 @@ window.LINEAGE = {
     { fyp: "2B", date: "2026-10", type: "completed", person: "Ng Khai Zhe", note: "Project completed" },
     { fyp: "2C", date: "2026-10", type: "completed", person: "Yee Shun Qi", note: "Project completed" },
     { fyp: "3A", date: "2026-10", type: "completed", person: "Lam Zhan Hong", note: "Project completed" },
-    { fyp: "3D", date: "2026-11", type: "initiated", person: "Talent #2", note: "Candidate identified; scope drafted" },
-    { fyp: "3A", date: "2027-01", type: "planned",   person: "Talent #2", note: "Continue honeypot reiteration" }
+    { fyp: "3D", date: "2026-11", type: "initiated", person: "—", note: "Scope drafted; candidate identified" },
+    { fyp: "3D", date: "2027-01", type: "planned",   person: "Talent #2", note: "Planned start of AD / RBAC build" }
   ]
 };
