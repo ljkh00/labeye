@@ -11,7 +11,7 @@
   --text:#C1C6D7; --muted:#8B90A1; --bright:#DFE2EF;
   --c1a:#3C90FF; --c1b:#B166FF; --c1c:#FE651E;
   --c2a:#A9C7FF; --c2b:#FC5844; --c2c:#60A5FA;
-  --c3a:#FDBA74; --c3b:#FFB598; --c3c:#4ADE80;
+  --c3a:#FDBA74; --c3b:#FFB598; --c3c:#4ADE80; --c3d:#F472B6;
 }
 [data-theme="light"] {
   --bg:#E8EAF0; --surface:#F4F5F8; --panel:#DFE2EF; --border:#C1C6D7;
@@ -185,6 +185,7 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
     <a class="nav-tab" href="index.html">Overview</a>
     <a class="nav-tab" href="architecture.html">Architecture</a>
     <a class="nav-tab" href="phases.html">Phase Map</a>
+    <a class="nav-tab" href="lineage.html">Lineage</a>
     <a class="nav-tab" href="fyp1a.html" style="color:var(--c1a)">1A</a>
     <a class="nav-tab" href="fyp1b.html" style="color:var(--c1b)">1B</a>
     <a class="nav-tab active" href="fyp1c.html" style="color:var(--c1c)">1C</a>
@@ -193,6 +194,7 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
     <a class="nav-tab" href="fyp2c.html" style="color:var(--c2c)">2C</a>
     <a class="nav-tab" href="fyp3a.html" style="color:var(--c3a)">3A</a>
     <a class="nav-tab" href="fyp3b.html" style="color:var(--c3b)">3B</a>
+    <a class="nav-tab" href="fyp3d.html" style="color:var(--c3d)">3D</a>
   </nav>
   <button id="theme-toggle" onclick="toggleTheme()"></button>
 </header>
@@ -496,7 +498,7 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
         </div>
         <div class="implementation-detail">
           <strong>ISOLATED STUDENT NETWORK</strong>
-          <p>Deployed lab VMs use VLAN <code>900</code> on the isolated <code>172.29.0.0/24</code> network. This separates vulnerable lab workloads from the management network while allowing the automation server to configure VMs and proxy console traffic.</p>
+          <p>Deployed lab VMs sit in an isolated lab zone. This separates vulnerable lab workloads from the management network while allowing the automation server to configure VMs and proxy console traffic.</p>
         </div>
         <div class="implementation-detail">
           <strong>VM-ID ALLOCATION AND STATE</strong>
@@ -799,6 +801,9 @@ document.addEventListener('click', function(e) {
   }
 });
 </script>
+<div id="lineage-strip" data-fyp="1C"></div>
+<script src="lineage-data.js"></script>
+<script src="lineage.js"></script>
 <script>
 // Theme toggle
 function applyTheme(theme) {

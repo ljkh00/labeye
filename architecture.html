@@ -11,7 +11,7 @@
     --text:#C1C6D7; --muted:#8B90A1; --bright:#DFE2EF;
     --c1a:#3C90FF; --c1b:#B166FF; --c1c:#FE651E;
     --c2a:#A9C7FF; --c2b:#FC5844; --c2c:#60A5FA;
-    --c3a:#FDBA74; --c3b:#FFB598; --c3c:#4ADE80;
+    --c3a:#FDBA74; --c3b:#FFB598; --c3c:#4ADE80; --c3d:#F472B6;
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
@@ -118,6 +118,7 @@
     <a class="nav-tab" href="index.html">Overview</a>
     <a class="nav-tab active" href="architecture.html">Architecture</a>
     <a class="nav-tab" href="phases.html">Phase Map</a>
+    <a class="nav-tab" href="lineage.html">Lineage</a>
     <a class="nav-tab" href="fyp1a.html" style="color:var(--c1a)">1A</a>
     <a class="nav-tab" href="fyp1b.html" style="color:var(--c1b)">1B</a>
     <a class="nav-tab" href="fyp1c.html" style="color:var(--c1c)">1C</a>
@@ -126,6 +127,7 @@
     <a class="nav-tab" href="fyp2c.html" style="color:var(--c2c)">2C</a>
     <a class="nav-tab" href="fyp3a.html" style="color:var(--c3a)">3A</a>
     <a class="nav-tab" href="fyp3b.html" style="color:var(--c3b)">3B</a>
+    <a class="nav-tab" href="fyp3d.html" style="color:var(--c3d)">3D</a>
   </nav>
 </header>
 
@@ -216,22 +218,22 @@
       <!-- VLAN pills row -->
       <g font-family="'Space Grotesk',sans-serif" font-size="8.5">
         <rect x="256" y="236" width="54" height="15" rx="2" fill="rgba(60,144,255,.07)" stroke="rgba(60,144,255,.28)" stroke-width="1"/>
-        <text x="283" y="248" text-anchor="middle" fill="#3C90FF">V10 Mgmt</text>
+        <text x="283" y="248" text-anchor="middle" fill="#3C90FF">Mgmt</text>
 
         <rect x="317" y="236" width="62" height="15" rx="2" fill="rgba(177,102,255,.07)" stroke="rgba(177,102,255,.28)" stroke-width="1"/>
-        <text x="348" y="248" text-anchor="middle" fill="#B166FF">V20 Students</text>
+        <text x="348" y="248" text-anchor="middle" fill="#B166FF">Students</text>
 
         <rect x="386" y="236" width="60" height="15" rx="2" fill="rgba(252,88,68,.07)" stroke="rgba(252,88,68,.28)" stroke-width="1"/>
-        <text x="416" y="248" text-anchor="middle" fill="#FC5844">V30 Red Team</text>
+        <text x="416" y="248" text-anchor="middle" fill="#FC5844">Red Team</text>
 
         <rect x="453" y="236" width="64" height="15" rx="2" fill="rgba(96,165,250,.07)" stroke="rgba(96,165,250,.28)" stroke-width="1"/>
-        <text x="485" y="248" text-anchor="middle" fill="#60A5FA">V40 Blue Team</text>
+        <text x="485" y="248" text-anchor="middle" fill="#60A5FA">Blue Team</text>
 
         <rect x="524" y="236" width="58" height="15" rx="2" fill="rgba(253,186,116,.07)" stroke="rgba(253,186,116,.28)" stroke-width="1"/>
-        <text x="553" y="248" text-anchor="middle" fill="#FDBA74">V50 Isolated</text>
+        <text x="553" y="248" text-anchor="middle" fill="#FDBA74">Isolated</text>
 
         <rect x="589" y="236" width="64" height="15" rx="2" fill="rgba(169,199,255,.07)" stroke="rgba(169,199,255,.28)" stroke-width="1"/>
-        <text x="621" y="248" text-anchor="middle" fill="#A9C7FF">V60 Monitor</text>
+        <text x="621" y="248" text-anchor="middle" fill="#A9C7FF">Monitor</text>
 
         <rect x="660" y="236" width="44" height="15" rx="2" fill="rgba(254,101,30,.07)" stroke="rgba(254,101,30,.28)" stroke-width="1"/>
         <text x="682" y="248" text-anchor="middle" fill="#FE651E">VPN GW</text>
@@ -271,7 +273,7 @@
       <text x="318" y="374" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="8" fill="#3C90FF">push images</text>
       <text x="318" y="450" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="8" fill="#A9C7FF">Wazuh logs</text>
       <text x="660" y="378" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="8" fill="#FC5844">attack / interact</text>
-      <text x="510" y="207" text-anchor="start" font-family="'Space Grotesk',sans-serif" font-size="7.5" fill="#A9C7FF" opacity="0.6">Wazuh logs (V60 Monitor)</text>
+      <text x="510" y="207" text-anchor="start" font-family="'Space Grotesk',sans-serif" font-size="7.5" fill="#A9C7FF" opacity="0.6">Wazuh logs (Monitor zone)</text>
 
       <!-- ═══════════════ DELL R440 ═══════════════ -->
       <rect x="10" y="322" width="244" height="230" rx="5" fill="#1C1F29" stroke="#3C90FF" stroke-width="1.5"/>
@@ -310,7 +312,7 @@
       <text x="420" y="344" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="8.5" fill="#B166FF">EDGE HYPERVISORS</text>
       <!-- title -->
       <text x="480" y="368" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-weight="700" font-size="17" fill="#DFE2EF">11× Acer Predator</text>
-      <text x="480" y="384" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="8" fill="#8B90A1">Proxmox VE  ·  1 IP per node  ·  VLAN 40</text>
+      <text x="480" y="384" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="8" fill="#8B90A1">Proxmox VE  ·  Management zone</text>
       <!-- specs -->
       <g font-family="'Inter',sans-serif" font-size="11.5" fill="#C1C6D7">
         <text x="373" y="404"><tspan fill="#B166FF">›</tspan>  Host Vulnerable VMs</text>
@@ -345,7 +347,7 @@
       <text x="795" y="344" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="8.5" fill="#FC5844">ATTACKER / DFIR STN</text>
       <!-- title -->
       <text x="864" y="368" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-weight="700" font-size="17" fill="#DFE2EF">20× Lenovo Desktop</text>
-      <text x="864" y="384" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="8" fill="#8B90A1">Windows 11  ·  VLAN 30  ·  Class-configurable role</text>
+      <text x="864" y="384" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="8" fill="#8B90A1">Windows 11  ·  Station zone  ·  Class-configurable role</text>
       <!-- specs -->
       <g font-family="'Inter',sans-serif" font-size="11.5" fill="#C1C6D7">
         <text x="743" y="404"><tspan fill="#FC5844">›</tspan>  VirtualBox + Kali Linux</text>

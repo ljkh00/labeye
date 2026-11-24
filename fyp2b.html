@@ -11,7 +11,7 @@
   --text:#C1C6D7; --muted:#8B90A1; --bright:#DFE2EF;
   --c1a:#3C90FF; --c1b:#B166FF; --c1c:#FE651E;
   --c2a:#A9C7FF; --c2b:#FC5844; --c2c:#60A5FA;
-  --c3a:#FDBA74; --c3b:#FFB598; --c3c:#4ADE80;
+  --c3a:#FDBA74; --c3b:#FFB598; --c3c:#4ADE80; --c3d:#F472B6;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
@@ -130,6 +130,7 @@ code.k{font-family:'Space Grotesk',sans-serif;font-size:.68rem;color:var(--c2a);
     <a class="nav-tab" href="index.html">Overview</a>
     <a class="nav-tab" href="architecture.html">Architecture</a>
     <a class="nav-tab" href="phases.html">Phase Map</a>
+    <a class="nav-tab" href="lineage.html">Lineage</a>
     <a class="nav-tab" href="fyp1a.html" style="color:var(--c1a)">1A</a>
     <a class="nav-tab" href="fyp1b.html" style="color:var(--c1b)">1B</a>
     <a class="nav-tab" href="fyp1c.html" style="color:var(--c1c)">1C</a>
@@ -138,6 +139,7 @@ code.k{font-family:'Space Grotesk',sans-serif;font-size:.68rem;color:var(--c2a);
     <a class="nav-tab" href="fyp2c.html" style="color:var(--c2c)">2C</a>
     <a class="nav-tab" href="fyp3a.html" style="color:var(--c3a)">3A</a>
     <a class="nav-tab" href="fyp3b.html" style="color:var(--c3b)">3B</a>
+    <a class="nav-tab" href="fyp3d.html" style="color:var(--c3d)">3D</a>
   </nav>
 </header>
 
@@ -335,7 +337,7 @@ code.k{font-family:'Space Grotesk',sans-serif;font-size:.68rem;color:var(--c2a);
   <div class="section-grid full">
     <div class="info-block">
       <div class="block-label">WORKSTATION IDENTITY — update_workstation_ip.ps1</div>
-      <p>Each student Lenovo runs <code class="k">update_workstation_ip.ps1</code> (installed under ProgramData, scheduled at logon and every 30 minutes). The script is edited per seat: <code class="k">WorkstationId</code> must match <code class="k">workstations.json</code> (e.g. ws1). It picks the lab LAN IPv4 (preferred prefix <code class="k">192.168.0.</code>, skipping loopback/Docker/WSL) and POSTs identity to the VNC proxy on the student VLAN:</p>
+      <p>Each student Lenovo runs <code class="k">update_workstation_ip.ps1</code> (installed under ProgramData, scheduled at logon and every 30 minutes). The script is edited per seat: <code class="k">WorkstationId</code> must match <code class="k">workstations.json</code> (e.g. ws1). It picks the lab LAN IPv4 (the configured campus prefix, skipping loopback/Docker/WSL) and POSTs identity to the VNC proxy on the student VLAN:</p>
       <p style="margin-top:.55rem"><code class="k">POST http://&lt;proxy&gt;:8080/api/lab/access/workstation-ip</code> &nbsp;→&nbsp; <code class="k">{ workstation_id, ip, replace_ips: true }</code></p>
       <p style="margin-top:.55rem">The proxy forwards that into the lab API, which writes the IP onto the seat record. A local <code class="k">ip_heartbeat.log</code> is also shipped to <code class="k">/api/lab/access/workstation-log</code> for troubleshooting. Without this heartbeat, DHCP or a cable move would leave the backend thinking ws1 is still the old address — and console IP checks would deny the real student or, worse, bind the wrong seat.</p>
 
@@ -351,7 +353,7 @@ code.k{font-family:'Space Grotesk',sans-serif;font-size:.68rem;color:var(--c2a);
           <tbody>
             <tr>
               <td><strong>update_workstation_ip.ps1</strong><br><span style="color:var(--muted);font-size:.72rem">each Lenovo seat</span></td>
-              <td>Detects the current lab IP and reports <code class="k">wsN → 192.168.0.x</code> so the seat’s identity stays current after DHCP or a move.</td>
+              <td>Detects the current lab IP and reports <code class="k">wsN → current IP</code> so the seat’s identity stays current after DHCP or a move.</td>
             </tr>
             <tr>
               <td><strong>fyp_proxy / vnc-proxy-server.js</strong><br><span style="color:var(--muted);font-size:.72rem">:8080 on student VLAN</span></td>
@@ -608,6 +610,9 @@ code.k{font-family:'Space Grotesk',sans-serif;font-size:.68rem;color:var(--c2a);
   <img id="lbImg" src="" alt="">
 </div>
 
+<div id="lineage-strip" data-fyp="2B"></div>
+<script src="lineage-data.js"></script>
+<script src="lineage.js"></script>
 <script>
 document.addEventListener('click', function(e) {
   if (e.target.classList.contains('status-badge')) {
