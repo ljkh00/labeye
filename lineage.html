@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Lineage — SOC Lab FYP</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0f131c; --surface:#1C1F29; --panel:#1C1F29; --border:#414755;
+  --text:#C1C6D7; --muted:#8B90A1; --bright:#DFE2EF;
+  --c1a:#3C90FF; --c1b:#B166FF; --c1c:#FE651E;
+  --c2a:#A9C7FF; --c2b:#FC5844; --c2c:#60A5FA;
+  --c3a:#FDBA74; --c3b:#FFB598; --c3c:#4ADE80; --c3d:#F472B6;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+html{scrollbar-width:thin;scrollbar-color:#262A34 transparent}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-thumb{background:#262A34;border-radius:20px}
+::-webkit-scrollbar-track{background:transparent}
+header{border-bottom:1px solid var(--border);padding:0 2.5rem;position:sticky;top:0;z-index:100;background:var(--bg);display:flex;align-items:center;gap:1.5rem;height:60px}
+.logo-badge{font-family:'Space Grotesk',sans-serif;font-size:.75rem;letter-spacing:.06em;color:var(--c2a);border:1px solid var(--c2a);padding:.25rem .6rem;border-radius:3px;white-space:nowrap;text-decoration:none}
+header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:700;color:var(--bright);letter-spacing:.04em;flex:1}
+.nav-tabs{display:flex;gap:.25rem}
+.nav-tab{font-family:'Space Grotesk',sans-serif;font-size:.7rem;letter-spacing:.08em;padding:.35rem .75rem;border:1px solid transparent;border-radius:3px;cursor:pointer;background:none;color:var(--muted);transition:all .2s;white-space:nowrap;text-decoration:none;display:inline-block}
+.nav-tab:hover{color:var(--c2a);border-color:var(--border)}
+.nav-tab.active{color:var(--c2a);background:var(--panel);border-color:var(--border)}
+.candidate-page{max-width:960px;margin:0 auto;padding:2.5rem}
+.candidate-header{display:flex;align-items:flex-start;gap:1.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);margin-bottom:2rem}
+.candidate-badge{font-family:'Space Grotesk',sans-serif;font-size:2.2rem;font-weight:900;border:2px solid;border-radius:6px;padding:.5rem 1rem;white-space:nowrap;line-height:1;flex-shrink:0}
+.candidate-meta{flex:1}
+.candidate-meta .phase-tag{font-family:'Space Grotesk',sans-serif;font-size:.65rem;letter-spacing:.06em;margin-bottom:.4rem}
+.candidate-meta h2{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:900;line-height:1.1;color:var(--bright);margin-bottom:.5rem}
+.candidate-meta .course-tags{display:flex;gap:.4rem;flex-wrap:wrap}
+.course-tag{font-family:'Space Grotesk',sans-serif;font-size:.6rem;padding:.2rem .5rem;border:1px solid var(--border);border-radius:2px;color:var(--muted)}
+.candidate-name-block{background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;font-family:'Space Grotesk',sans-serif;font-size:.7rem;color:var(--muted)}
+.candidate-name-block strong{color:var(--bright);font-size:.8rem}
+.section-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.section-grid.full{grid-template-columns:1fr}
+.section-grid.three{grid-template-columns:1fr 1fr 1fr}
+.info-block{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:1.25rem;position:relative}
+.info-block .block-label{font-family:'Space Grotesk',sans-serif;font-size:.6rem;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem}
+.info-block .block-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.info-block .editable{font-size:.85rem;line-height:1.65;color:var(--text);min-height:60px;outline:none;border:1px dashed transparent;border-radius:3px;padding:.25rem;transition:border-color .2s}
+.info-block .editable:focus{border-color:var(--border)}
+.info-block .editable:empty::before{content:attr(data-placeholder);color:var(--muted);font-style:italic;pointer-events:none}
+.scope-list{list-style:none;font-size:.85rem;line-height:1.7}
+.scope-list li{display:flex;align-items:flex-start;gap:.5rem;padding:.3rem 0;border-bottom:1px solid var(--border)}
+.scope-list li:last-child{border-bottom:none}
+.scope-list li .num{font-family:'Space Grotesk',sans-serif;font-size:.65rem;color:var(--muted);padding-top:.15rem;flex-shrink:0}
+.deliverable-grid{display:grid;grid-template-columns:1fr;gap:.4rem}
+.deliverable-item{display:flex;align-items:center;gap:.6rem;font-size:.8rem;padding:.4rem .5rem;border:1px solid var(--border);border-radius:3px;background:var(--bg)}
+.deliverable-item .check{width:14px;height:14px;border-radius:2px;border:1px solid var(--border);flex-shrink:0}
+.status-badge{font-family:'Space Grotesk',sans-serif;font-size:.6rem;padding:.15rem .4rem;border-radius:2px;border:1px solid;margin-left:auto;cursor:pointer}
+.status-badge.planned{color:var(--muted);border-color:var(--muted)}
+.status-badge.wip{color:var(--c1c);border-color:var(--c1c)}
+.status-badge.done{color:var(--c2a);border-color:var(--c2a)}
+.research-q-list{list-style:none;counter-reset:rq}
+.research-q-list li{counter-increment:rq;display:flex;align-items:flex-start;gap:.75rem;padding:.65rem 0;border-bottom:1px solid var(--border);font-size:.85rem;line-height:1.5}
+.research-q-list li:last-child{border-bottom:none}
+.research-q-list li::before{content:'RQ' counter(rq);font-family:'Space Grotesk',sans-serif;font-size:.6rem;padding:.2rem .4rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);flex-shrink:0;margin-top:.1rem}
+.method-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.method-tag{font-family:'Space Grotesk',sans-serif;font-size:.65rem;padding:.25rem .6rem;border-radius:3px;border:1px solid}
+@media(max-width:768px){.section-grid{grid-template-columns:1fr}.section-grid.three{grid-template-columns:1fr}.candidate-header{flex-direction:column}.nav-tabs{flex-wrap:wrap}header{height:auto;padding:.75rem 1rem;flex-wrap:wrap}}
+
+.lin-page{max-width:1200px;margin:0 auto;padding:2.5rem}
+.lin-page h2{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;color:var(--bright);margin-bottom:.4rem}
+.lin-page p.lead{font-size:.88rem;color:var(--muted);line-height:1.6;max-width:760px}
+.lin-page h3{font-family:'Space Grotesk',sans-serif;font-size:.7rem;letter-spacing:.06em;color:var(--muted);margin:2rem 0 .5rem;text-transform:uppercase}
+.how{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--c3c);border-radius:6px;padding:1rem 1.25rem;font-size:.8rem;line-height:1.7;margin-top:2rem}
+.how code{color:var(--c3c)}
+</style>
+</head>
+<body>
+<header>
+  <a href="index.html" class="logo-badge">SOC-LAB-FYP</a>
+  <h1>Centralised Security Lab Transformation — Final Year Project Map</h1>
+  <nav class="nav-tabs">
+    <a class="nav-tab" href="index.html">Overview</a>
+    <a class="nav-tab" href="architecture.html">Architecture</a>
+    <a class="nav-tab" href="phases.html">Phase Map</a>
+    <a class="nav-tab active" href="lineage.html">Lineage</a>
+    <a class="nav-tab" href="fyp1a.html" style="color:var(--c1a)">1A</a>
+    <a class="nav-tab" href="fyp1b.html" style="color:var(--c1b)">1B</a>
+    <a class="nav-tab" href="fyp1c.html" style="color:var(--c1c)">1C</a>
+    <a class="nav-tab" href="fyp2a.html" style="color:var(--c2a)">2A</a>
+    <a class="nav-tab" href="fyp2b.html" style="color:var(--c2b)">2B</a>
+    <a class="nav-tab" href="fyp2c.html" style="color:var(--c2c)">2C</a>
+    <a class="nav-tab" href="fyp3a.html" style="color:var(--c3a)">3A</a>
+    <a class="nav-tab" href="fyp3b.html" style="color:var(--c3b)">3B</a>
+    <a class="nav-tab" href="fyp3d.html" style="color:var(--c3d)">3D</a>
+  </nav>
+</header>
+<div class="lin-page">
+  <h2>Project Lineage</h2>
+  <p class="lead">Each lane is one FYP. Dots mark when a talent initiated, continued, handed over or completed that work. Curves show which earlier project a lane grew out of. Solid lines are past work and dashed lines are planned work. Hover over a dot for details.</p>
+  <h3>Lineage graph</h3>
+  <div id="lineage-graph"></div>
+  <h3>Milestone log</h3>
+  <div id="lineage-table"></div>
+  <div class="how"><strong>Want to be the next name on this graph?</strong> Open projects are marked <em>Deferred</em> or <em>Planned</em>. Check the <a href="phases.html" style="color:var(--c2a)">Phase Map</a> for prerequisites, then contact the lab supervisor.<br>
+  <span style="color:var(--muted)">Maintainers: add one entry to <code>lineage-data.js</code> per milestone. This page and every FYP page update automatically. Use first names or "Talent #n" only.</span></div>
+</div>
+<script src="lineage-data.js"></script>
+<script src="lineage.js"></script>
+</body>
+</html>

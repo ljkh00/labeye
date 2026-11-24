@@ -74,6 +74,7 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
     <a class="nav-tab" href="index.html">Overview</a>
     <a class="nav-tab" href="architecture.html">Architecture</a>
     <a class="nav-tab" href="phases.html">Phase Map</a>
+    <a class="nav-tab" href="lineage.html">Lineage</a>
     <a class="nav-tab" href="fyp1a.html" style="color:var(--c1a)">1A</a>
     <a class="nav-tab" href="fyp1b.html" style="color:var(--c1b)">1B</a>
     <a class="nav-tab" href="fyp1c.html" style="color:var(--c1c)">1C</a>
@@ -231,6 +232,9 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
     <div class="editable" contenteditable="true">I give the lab one identity spine. LabEye (2A) stops managing its own users, lecturers get per-course access through group membership instead of shared passwords, and every admin action on Proxmox, OPNsense and Wazuh can be traced to a named account. DC security logs give 2C and 3B a new identity-layer detection source. Onboarding scripts turn the start-of-semester account setup into a single step, which is what makes the lab sustainable for whoever inherits it next.</div>
   </div>
 </div>
+<div id="lineage-strip" data-fyp="3D"></div>
+<script src="lineage-data.js"></script>
+<script src="lineage.js"></script>
 <script>
 document.addEventListener('click', function(e) {
   if (e.target.classList.contains('status-badge')) {

@@ -132,6 +132,7 @@ table.rdt-table td:first-child{font-family:'Share Tech Mono',monospace;font-size
     <a class="nav-tab" href="index.html">Overview</a>
     <a class="nav-tab" href="architecture.html">Architecture</a>
     <a class="nav-tab" href="phases.html">Phase Map</a>
+    <a class="nav-tab" href="lineage.html">Lineage</a>
     <a class="nav-tab" href="fyp1a.html" style="color:var(--c1a)">1A</a>
     <a class="nav-tab active" href="fyp1b.html" style="color:var(--c1b)">1B</a>
     <a class="nav-tab" href="fyp1c.html" style="color:var(--c1c)">1C</a>
@@ -181,7 +182,7 @@ table.rdt-table td:first-child{font-family:'Share Tech Mono',monospace;font-size
     <div class="info-block">
       <div class="block-label">PROBLEM SOLUTION</div>
       <p>Build an <span class="hl">on-premises Lab D cluster</span>, not a cloud or mobile lab. Acer nodes host concurrent student VMs. The Dell node hosts shared services. IEEE 802.1Q VLANs and <span class="hl">Opnsense-main</span> isolate the campus LAN from the exercise fabric.</p>
-      <p style="margin-top:.7rem">Students sit at Lenovo PCs, open <span class="hl">LabEye</span> (teammate portal), and configure a four-guest overlay: student OPNsense, VyOS, Ubuntu, Windows — without hypervisor administrator rights. Staff open ntopng, d3.js (Cluster Mesh), Wazuh, and Proxmox on VLAN 900. Tokens stay in Express on guest <code style="color:var(--c1b)">d3.js</code> at 172.29.0.51. Grafana, Netdata, and pfSense are not used.</p>
+      <p style="margin-top:.7rem">Students sit at Lenovo PCs, open <span class="hl">LabEye</span> (teammate portal), and configure a four-guest overlay: student OPNsense, VyOS, Ubuntu, Windows — without hypervisor administrator rights. Staff open ntopng, d3.js (Cluster Mesh), Wazuh, and Proxmox in the SecMon zone. Tokens stay in Express on guest <code style="color:var(--c1b)">d3.js</code>. Grafana, Netdata, and pfSense are not used.</p>
     </div>
     <div class="info-block">
       <div class="block-label">RESEARCH QUESTIONS</div>
@@ -282,7 +283,7 @@ table.rdt-table td:first-child{font-family:'Share Tech Mono',monospace;font-size
               <td>Can lecturers observe ntopng, Cluster Mesh, and Wazuh off the student path?</td>
               <td>RO3 — Lecturer observability</td>
               <td><span class="method-pill">Lecturer cases</span></td>
-              <td>Staff open those tools on VLAN 900. Networking students do not.</td>
+              <td>Staff open those tools in the SecMon zone. Networking students do not.</td>
             </tr>
             <tr>
               <td>RQ4</td>
@@ -313,68 +314,20 @@ table.rdt-table td:first-child{font-family:'Share Tech Mono',monospace;font-size
 
   <div class="section-grid full">
     <div class="info-block">
-      <div class="block-label">VLAN ALLOCATION</div>
-      <p class="note" style="margin:0 0 .75rem">IEEE 802.1Q on the TL-SG1024DE. Opnsense-main is the <code style="color:var(--c1b)">.1</code> gateway on each laboratory prefix. Hosts in the same VLAN switch at Layer 2. Inter-VLAN traffic is default-deny except the pairs below.</p>
+      <div class="block-label">SEGMENTATION ZONES</div>
+      <p class="note" style="margin:0 0 .75rem">IEEE 802.1Q segmentation on a managed switch, with Opnsense-main as the gateway for every lab zone. Inter-zone traffic is denied by default except for the pairs below. VLAN IDs, address plan and gateway addresses are held in the private handover pack.</p>
       <div class="table-wrap">
         <table class="vlan-table">
           <thead>
-            <tr><th>VLAN</th><th>Name</th><th>IPv4 network</th><th>Gateway</th><th>Role</th><th>May reach</th><th>Must not reach</th></tr>
+            <tr><th>Zone</th><th>Name</th><th>Role</th><th>May reach</th><th>Must not reach</th></tr>
           </thead>
           <tbody>
-            <tr>
-              <td>10 / WAN</td>
-              <td>University LAN</td>
-              <td>192.168.0.0/24</td>
-              <td>192.168.0.1 · OPNsense WAN 192.168.0.35</td>
-              <td>North–south path; switch management 192.168.0.254</td>
-              <td>Internet through Opnsense-main NAT, for VLANs that are allowed out</td>
-              <td>Wazuh, d3.js (Cluster Mesh), ntopng, and the OPNsense WAN address from campus hosts. Staff enter those services on VLAN 900.</td>
-            </tr>
-            <tr>
-              <td>90</td>
-              <td>proxmox</td>
-              <td>192.168.90.0/24</td>
-              <td>192.168.90.1</td>
-              <td>Hypervisor cluster. Students do not use this VLAN.</td>
-              <td>900, 901, 911, 921, and the Internet</td>
-              <td>—</td>
-            </tr>
-            <tr>
-              <td>900</td>
-              <td>SecMon</td>
-              <td>172.29.0.0/24</td>
-              <td>172.29.0.1</td>
-              <td>Wazuh, ntopng, LabEye, d3.js (Cluster Mesh). Lenovo static-route target.</td>
-              <td>901, 911, 921, the Internet, and other hosts on 192.168.90.0/24</td>
-              <td>Opnsense-main LAN at 192.168.90.1</td>
-            </tr>
-            <tr>
-              <td>901</td>
-              <td>Blue_team</td>
-              <td>172.29.1.0/24</td>
-              <td>172.29.1.1</td>
-              <td>Defensive workloads</td>
-              <td>911 (victims) and the Internet</td>
-              <td>90, 900, and 921 (red). Blue does not talk to red on the wire.</td>
-            </tr>
-            <tr>
-              <td>911</td>
-              <td>victims</td>
-              <td>172.29.11.0/24</td>
-              <td>172.29.11.1</td>
-              <td>Exposed or vulnerable targets</td>
-              <td>901 (blue) and the Internet</td>
-              <td>90, 900, and 921 (red)</td>
-            </tr>
-            <tr>
-              <td>921</td>
-              <td>red_team</td>
-              <td>172.29.21.0/24</td>
-              <td>172.29.21.1</td>
-              <td>Offensive workloads</td>
-              <td>911 (victims) and the Internet</td>
-              <td>90, 900, and 901 (blue). Red meets blue only on the victim segment.</td>
-            </tr>
+            <tr><td>WAN</td><td>University LAN uplink</td><td>North–south path to campus/Internet</td><td>Internet via Opnsense-main NAT, for zones allowed out</td><td>Lab monitoring services and the firewall admin interface</td></tr>
+            <tr><td>Management</td><td>Hypervisor cluster</td><td>Proxmox nodes. Students never use this zone.</td><td>SecMon, lab zones, Internet</td><td>—</td></tr>
+            <tr><td>SecMon</td><td>Security monitoring</td><td>Wazuh, ntopng, LabEye, Cluster Mesh. Staff entry point.</td><td>Lab zones, Internet, cluster hosts</td><td>Firewall management interface</td></tr>
+            <tr><td>Blue</td><td>Defensive workloads</td><td>Blue Team VMs</td><td>Victims, Internet</td><td>Management, SecMon, Red. Blue never talks to Red on the wire.</td></tr>
+            <tr><td>Victims</td><td>Vulnerable targets</td><td>Exposed / vulnerable VMs</td><td>Blue, Internet</td><td>Management, SecMon, Red</td></tr>
+            <tr><td>Red</td><td>Offensive workloads</td><td>Red Team VMs</td><td>Victims, Internet</td><td>Management, SecMon, Blue. Red meets Blue only on the victim zone.</td></tr>
           </tbody>
         </table>
       </div>
@@ -438,9 +391,9 @@ table.rdt-table td:first-child{font-family:'Share Tech Mono',monospace;font-size
     <div class="info-block">
       <div class="block-label">NETWORK TOPOLOGY</div>
       <div class="diagram-container">
-        <img src="assets/fyp1b/network-topology.png" alt="Physical topology of the Lab D platform: TP-Link TL-SG1024DE, Acer Proxmox nodes, Dell rack, and VLAN plan">
+        <img src="assets/fyp1b/network-topology.png" alt="Physical topology of the Lab D platform: TP-Link TL-SG1024DE, Acer Proxmox nodes, Dell rack, and segmentation zones">
       </div>
-      <p class="note">Physical fabric of Lab D: TL-SG1024DE core, ten Acer Proxmox nodes for class clones, Dell node for Opnsense-main and shared services, and twenty Lenovo seats routed to 172.29.0.0/24. SPAN into ntopng uses switch port 18. Click the diagram to enlarge.</p>
+      <p class="note">Physical fabric of Lab D: TL-SG1024DE core, ten Acer Proxmox nodes for class clones, Dell node for Opnsense-main and shared services, and twenty Lenovo seats routed to the SecMon zone. A SPAN port feeds ntopng. Click the diagram to enlarge.</p>
     </div>
   </div>
 
@@ -478,6 +431,9 @@ table.rdt-table td:first-child{font-family:'Share Tech Mono',monospace;font-size
   <img id="lbImg" src="" alt="">
 </div>
 
+<div id="lineage-strip" data-fyp="1B"></div>
+<script src="lineage-data.js"></script>
+<script src="lineage.js"></script>
 <script>
 document.addEventListener('click', function(e) {
   if (e.target.classList.contains('status-badge')) {

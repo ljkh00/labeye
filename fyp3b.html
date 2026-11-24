@@ -74,6 +74,7 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
     <a class="nav-tab" href="index.html">Overview</a>
     <a class="nav-tab" href="architecture.html">Architecture</a>
     <a class="nav-tab" href="phases.html">Phase Map</a>
+    <a class="nav-tab" href="lineage.html">Lineage</a>
     <a class="nav-tab" href="fyp1a.html" style="color:var(--c1a)">1A</a>
     <a class="nav-tab" href="fyp1b.html" style="color:var(--c1b)">1B</a>
     <a class="nav-tab" href="fyp1c.html" style="color:var(--c1c)">1C</a>
@@ -188,6 +189,9 @@ header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:7
     <div class="editable" contenteditable="true">My IDS/IPS adds a network-layer detection capability that FYP-2A's host-based SIEM alone cannot provide. By forwarding Suricata alerts into the SIEM, I enable correlated detection — a single attack triggers both host and network alerts simultaneously. My custom rule library can be extended in future semesters as new FYP-2B attack scenarios are added. I effectively make the lab's detection architecture complete.</div>
   </div>
 </div>
+<div id="lineage-strip" data-fyp="3B"></div>
+<script src="lineage-data.js"></script>
+<script src="lineage.js"></script>
 <script>
 document.addEventListener('click', function(e) {
   if (e.target.classList.contains('status-badge')) {
