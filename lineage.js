@@ -83,10 +83,11 @@
       const a = ym(le[0].date), last = le[le.length - 1];
       const ended = ["retired", "completed"].includes(last.type);
       const b = ended ? ym(last.date) : Math.max(nowYM, ym(last.date));
-      const pastEnd = Math.min(b, nowYM);
+      const real = le.filter(e => e.type !== "planned"), lastReal = real[real.length - 1];
+      const pastEnd = lastReal && lastReal.type === "completed" ? ym(lastReal.date) : Math.min(b, nowYM);
       const idle = last.type === "deferred";
       if (pastEnd > a) s += `<line x1="${X(a)}" y1="${y}" x2="${X(pastEnd)}" y2="${y}" stroke="${ln.color}" stroke-width="${idle ? 1.5 : 3}"${idle ? ' stroke-dasharray="2 4" opacity=".6"' : ""}/>`;
-      if (b > nowYM) s += `<line x1="${X(Math.max(a, nowYM))}" y1="${y}" x2="${X(b)}" y2="${y}" stroke="${ln.color}" stroke-width="2" stroke-dasharray="5 4"/>`;
+      if (b > pastEnd) s += `<line x1="${X(Math.max(a, pastEnd))}" y1="${y}" x2="${X(b)}" y2="${y}" stroke="${ln.color}" stroke-width="2" stroke-dasharray="5 4"/>`;
       if (ln.parent) {
         const pi = L.lanes.findIndex(l => l.id === ln.parent);
         if (pi >= 0) { const py = Y(pi), x0 = X(a) - colW * .8, x1 = X(a);
@@ -95,7 +96,7 @@
       le.forEach((e, k) => {
         const x = X(ym(e.date)) + (le.filter((z, j) => j < k && z.date === e.date).length) * 14;
         s += `<g class="lin-dot"><title>FYP-${e.fyp} · ${fmt(e.date)} · ${(TYPES[e.type] || {}).label || e.type} · ${esc(e.person)} — ${esc(e.note)}</title>${dot(e.type, ln.color, x, y, 6)}</g>`;
-        if (e.person && !["TBC", "—"].includes(e.person)) s += `<text x="${x}" y="${y - 11}" font-size="9" fill="#DFE2EF" text-anchor="middle">${esc(e.person)}</text>`;
+        if (e.person && !["TBC", "—", "N/A"].includes(e.person) && !le.slice(0, k).some(z => z.person === e.person)) s += `<text x="${x}" y="${y - 11}" font-size="9" fill="#DFE2EF" text-anchor="middle">${esc(e.person)}</text>`;
       });
     });
     g.innerHTML = legend() + `<div class="lin-scroll">${s}</svg></div>`;
