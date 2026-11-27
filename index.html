@@ -11,7 +11,7 @@
     --text:#C1C6D7; --muted:#8B90A1; --bright:#DFE2EF;
     --c1a:#3C90FF; --c1b:#B166FF; --c1c:#FE651E;
     --c2a:#A9C7FF; --c2b:#FC5844; --c2c:#60A5FA;
-    --c3a:#FDBA74; --c3b:#FFB598; --c3c:#4ADE80; --c3d:#F472B6;
+    --c3a:#FDBA74; --c3b:#FFB598; --c3c:#4ADE80; --c3d:#F472B6; --c3e:#87A896;
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
@@ -74,6 +74,7 @@
     <a class="nav-tab" href="fyp3a.html" style="color:var(--c3a)">3A</a>
     <a class="nav-tab" href="fyp3b.html" style="color:var(--c3b)">3B</a>
     <a class="nav-tab" href="fyp3d.html" style="color:var(--c3d)">3D</a>
+    <a class="nav-tab" href="fyp3e.html" style="color:var(--c3e)">3E</a>
   </nav>
 </header>
 
@@ -103,7 +104,7 @@
 <div class="flow-section">
   <div class="flow-label">SYSTEM FLOW — hover a box to highlight that FYP · click to open its page</div>
   <div class="flow-wrap">
-    <svg class="flow-svg" id="fyp-flow" viewBox="0 0 1120 500" role="img" aria-label="SOC Lab system flow map">
+    <svg class="flow-svg" id="fyp-flow" viewBox="0 0 1120 570" role="img" aria-label="SOC Lab system flow map">
       <defs>
         <marker id="arr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
           <polygon points="0 0,7 3.5,0 7" fill="#414755"/>
@@ -177,6 +178,14 @@
         <text class="flow-title" x="1016" y="402" text-anchor="middle">Network lab</text>
         <text class="flow-id" x="1016" y="420" text-anchor="middle" fill="var(--c1b)">FYP-1B</text>
       </g>
+
+      <line x1="20" y1="490" x2="1100" y2="490" stroke="var(--border)" stroke-width="1" stroke-dasharray="3,4"/>
+      <text x="20" y="480" font-family="'Space Grotesk',sans-serif" font-size="9" fill="var(--muted)" letter-spacing="1">NOT YET WIRED INTO THE LAB D FLOW ABOVE</text>
+      <g class="flow-node" data-fyp="3e" data-href="fyp3e.html" tabindex="0" role="link" aria-label="FYP-3E N-Day Lab, self-hosted, not yet integrated">
+        <rect x="20" y="500" width="248" height="52" rx="6" stroke="var(--c3e)" stroke-dasharray="4,3"/>
+        <text class="flow-title" x="144" y="520" text-anchor="middle">N-Day Lab</text>
+        <text class="flow-id" x="144" y="538" text-anchor="middle" fill="var(--c3e)">FYP-3E · self-hosted PoC</text>
+      </g>
     </svg>
   </div>
   <p class="flow-hint">Same-colour boxes belong to one FYP and light together.</p>
@@ -192,6 +201,7 @@
   <div class="legend-item"><div class="legend-swatch" style="background:var(--c2c)"></div>FYP-2C Blue Team</div>
   <div class="legend-item"><div class="legend-swatch" style="background:var(--c3a)"></div>FYP-3A Honeypot</div>
   <div class="legend-item"><div class="legend-swatch" style="background:var(--c3b)"></div>FYP-3B IDS/IPS</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:var(--c3e)"></div>FYP-3E N-Day Lab (self-hosted PoC)</div>
 </div>
 <script>
 (function () {
@@ -199,7 +209,7 @@
   if (!svg) return;
   var nodes = svg.querySelectorAll('.flow-node');
   var edges = svg.querySelectorAll('.flow-edge');
-  var pages = { '1a':'fyp1a.html','1b':'fyp1b.html','1c':'fyp1c.html','2a':'fyp2a.html','2b':'fyp2b.html','2c':'fyp2c.html','3a':'fyp3a.html','3b':'fyp3b.html' };
+  var pages = { '1a':'fyp1a.html','1b':'fyp1b.html','1c':'fyp1c.html','2a':'fyp2a.html','2b':'fyp2b.html','2c':'fyp2c.html','3a':'fyp3a.html','3b':'fyp3b.html','3e':'fyp3e.html' };
 
   function setHover(fyp) {
     svg.classList.add('is-hovering');
