@@ -11,7 +11,7 @@
     --text:#C1C6D7; --muted:#8B90A1; --bright:#DFE2EF;
     --c1a:#3C90FF; --c1b:#B166FF; --c1c:#FE651E;
     --c2a:#A9C7FF; --c2b:#FC5844; --c2c:#60A5FA;
-    --c3a:#FDBA74; --c3b:#FFB598; --c3c:#4ADE80; --c3d:#F472B6;
+    --c3a:#FDBA74; --c3b:#FFB598; --c3c:#4ADE80; --c3d:#F472B6; --c3e:#87A896;
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
@@ -46,7 +46,7 @@
   .arch-node ul li::before{content:'›';color:var(--muted)}
   .vlan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:.8rem}
   .vlan-pill{font-family:'Space Grotesk',sans-serif;font-size:.62rem;padding:.3rem .5rem;border-radius:3px;text-align:center;border:1px solid}
-  .dep-matrix{display:grid;grid-template-columns:80px repeat(8,1fr);gap:2px;font-family:'Space Grotesk',sans-serif;font-size:.6rem}
+  .dep-matrix{display:grid;grid-template-columns:80px repeat(9,1fr);gap:2px;font-family:'Space Grotesk',sans-serif;font-size:.6rem}
   .dep-cell{padding:.3rem;text-align:center;border-radius:2px;display:flex;align-items:center;justify-content:center}
   .dep-cell.header{color:var(--muted)}
   .dep-cell.self{background:var(--border)}
@@ -112,10 +112,10 @@
 </head>
 <body>
 <header>
-  <a href="index.html" class="logo-badge">SOC-LAB-FYP</a>
+  <a href="site-home.html" class="logo-badge">SOC-LAB-FYP</a>
   <h1>Centralised Security Lab Transformation — Final Year Project Map</h1>
   <nav class="nav-tabs">
-    <a class="nav-tab" href="index.html">Overview</a>
+    <a class="nav-tab" href="site-home.html">Overview</a>
     <a class="nav-tab active" href="architecture.html">Architecture</a>
     <a class="nav-tab" href="phases.html">Phase Map</a>
     <a class="nav-tab" href="lineage.html">Lineage</a>
@@ -128,6 +128,7 @@
     <a class="nav-tab" href="fyp3a.html" style="color:var(--c3a)">3A</a>
     <a class="nav-tab" href="fyp3b.html" style="color:var(--c3b)">3B</a>
     <a class="nav-tab" href="fyp3d.html" style="color:var(--c3d)">3D</a>
+    <a class="nav-tab" href="fyp3e.html" style="color:var(--c3e)">3E</a>
   </nav>
 </header>
 
@@ -425,21 +426,25 @@
 <div class="arch-section">
   <div class="section-label">INTER-PROJECT DEPENDENCY MATRIX</div>
   <div class="dep-matrix">
-    <div class="dep-cell header"></div><div class="dep-cell header" style="color:var(--c1a)">1A</div><div class="dep-cell header" style="color:var(--c1b)">1B</div><div class="dep-cell header" style="color:var(--c1c)">1C</div><div class="dep-cell header" style="color:var(--c2a)">2A</div><div class="dep-cell header" style="color:var(--c2b)">2B</div><div class="dep-cell header" style="color:var(--c2c)">2C</div><div class="dep-cell header" style="color:var(--c3a)">3A</div><div class="dep-cell header" style="color:var(--c3b)">3B</div>
-    <div class="dep-cell header" style="color:var(--c1a)">1A</div><div class="dep-cell self">—</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell empty"></div>
-    <div class="dep-cell header" style="color:var(--c1b)">1B</div><div class="dep-cell empty"></div><div class="dep-cell self">—</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div>
-    <div class="dep-cell header" style="color:var(--c1c)">1C</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell self">—</div><div class="dep-cell empty"></div><div class="dep-cell empty"></div><div class="dep-cell empty"></div><div class="dep-cell empty"></div><div class="dep-cell empty"></div>
-    <div class="dep-cell header" style="color:var(--c2a)">2A</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell self">—</div><div class="dep-cell empty"></div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div>
-    <div class="dep-cell header" style="color:var(--c2b)">2B</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell dep">←</div><div class="dep-cell self">—</div><div class="dep-cell feeds">↔</div><div class="dep-cell empty"></div><div class="dep-cell feeds">→</div>
-    <div class="dep-cell header" style="color:var(--c2c)">2C</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell dep">←</div><div class="dep-cell feeds">↔</div><div class="dep-cell self">—</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div>
-    <div class="dep-cell header" style="color:var(--c3a)">3A</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell dep">←</div><div class="dep-cell self">—</div><div class="dep-cell feeds">→</div>
-    <div class="dep-cell header" style="color:var(--c3b)">3B</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell self">—</div>
+    <div class="dep-cell header"></div><div class="dep-cell header" style="color:var(--c1a)">1A</div><div class="dep-cell header" style="color:var(--c1b)">1B</div><div class="dep-cell header" style="color:var(--c1c)">1C</div><div class="dep-cell header" style="color:var(--c2a)">2A</div><div class="dep-cell header" style="color:var(--c2b)">2B</div><div class="dep-cell header" style="color:var(--c2c)">2C</div><div class="dep-cell header" style="color:var(--c3a)">3A</div><div class="dep-cell header" style="color:var(--c3b)">3B</div><div class="dep-cell header" style="color:var(--c3e)">3E</div>
+    <div class="dep-cell header" style="color:var(--c1a)">1A</div><div class="dep-cell self">—</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell empty"></div><div class="dep-cell empty"></div>
+    <div class="dep-cell header" style="color:var(--c1b)">1B</div><div class="dep-cell empty"></div><div class="dep-cell self">—</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell empty"></div>
+    <div class="dep-cell header" style="color:var(--c1c)">1C</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell self">—</div><div class="dep-cell empty"></div><div class="dep-cell empty"></div><div class="dep-cell empty"></div><div class="dep-cell empty"></div><div class="dep-cell empty"></div><div class="dep-cell feeds">→</div>
+    <div class="dep-cell header" style="color:var(--c2a)">2A</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell self">—</div><div class="dep-cell empty"></div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell empty"></div>
+    <div class="dep-cell header" style="color:var(--c2b)">2B</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell dep">←</div><div class="dep-cell self">—</div><div class="dep-cell feeds">↔</div><div class="dep-cell empty"></div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div>
+    <div class="dep-cell header" style="color:var(--c2c)">2C</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell dep">←</div><div class="dep-cell feeds">↔</div><div class="dep-cell self">—</div><div class="dep-cell feeds">→</div><div class="dep-cell feeds">→</div><div class="dep-cell empty"></div>
+    <div class="dep-cell header" style="color:var(--c3a)">3A</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell dep">←</div><div class="dep-cell self">—</div><div class="dep-cell feeds">→</div><div class="dep-cell empty"></div>
+    <div class="dep-cell header" style="color:var(--c3b)">3B</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell dep">←</div><div class="dep-cell self">—</div><div class="dep-cell empty"></div>
+    <div class="dep-cell header" style="color:var(--c3e)">3E</div><div class="dep-cell empty"></div><div class="dep-cell empty"></div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell dep">←</div><div class="dep-cell empty"></div><div class="dep-cell empty"></div><div class="dep-cell empty"></div><div class="dep-cell self">—</div>
   </div>
-  <div style="margin-top:.75rem;font-family:'Space Grotesk',sans-serif;font-size:.6rem;color:var(--muted);display:flex;gap:1.5rem;">
+  <div style="margin-top:.75rem;font-family:'Space Grotesk',sans-serif;font-size:.6rem;color:var(--muted);display:flex;gap:1.5rem;flex-wrap:wrap;">
     <span><span style="color:var(--c1a)">→ feeds</span> = row output used by column</span>
     <span><span style="color:var(--c2a)">← depends</span> = row requires column to be complete first</span>
     <span>↔ = bidirectional integration</span>
   </div>
+  <p style="margin-top:.6rem;font-family:'Space Grotesk',sans-serif;font-size:.62rem;color:var(--muted);line-height:1.6;max-width:760px">
+    <strong style="color:var(--c3e)">FYP-3E (N-Day Lab)</strong>'s ← arrows to FYP-1C and FYP-2B mark <em>heritage</em>, not live infrastructure: the pipeline reuses 1C's Ansible-automation approach and tackles the same CVE-to-vulnerable-lab problem 2B does (hand-authored recipes there vs. AI-generated here). It does not yet consume either phase's actual running infrastructure — this is a self-hosted proof-of-concept (own VM, own Docker/WireGuard stack), deliberately <em>not yet</em> wired into Lab D. Depending on FYP-1A's golden images and FYP-1B's network segmentation once Forgejo integration lands is FYP2 scope, not claimed as active here.
+  </p>
 </div>
 </body>
 </html>

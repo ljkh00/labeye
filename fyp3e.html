@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FYP-3E N-Day Lab — SOC Lab FYP</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0f131c; --surface:#1C1F29; --panel:#1C1F29; --border:#414755;
+  --text:#C1C6D7; --muted:#8B90A1; --bright:#DFE2EF;
+  --c1a:#3C90FF; --c1b:#B166FF; --c1c:#FE651E;
+  --c2a:#A9C7FF; --c2b:#FC5844; --c2c:#60A5FA;
+  --c3a:#FDBA74; --c3b:#FFB598; --c3c:#4ADE80; --c3d:#F472B6;
+  --c3e:#87A896;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+html{scrollbar-width:thin;scrollbar-color:#262A34 transparent}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-thumb{background:#262A34;border-radius:20px}
+::-webkit-scrollbar-track{background:transparent}
+header{border-bottom:1px solid var(--border);padding:0 2.5rem;position:sticky;top:0;z-index:100;background:var(--bg);display:flex;align-items:center;gap:1.5rem;height:60px}
+.logo-badge{font-family:'Space Grotesk',sans-serif;font-size:.75rem;letter-spacing:.06em;color:var(--c2a);border:1px solid var(--c2a);padding:.25rem .6rem;border-radius:3px;white-space:nowrap;text-decoration:none}
+header h1{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:700;color:var(--bright);letter-spacing:.04em;flex:1}
+.nav-tabs{display:flex;gap:.25rem;flex-wrap:wrap}
+.nav-tab{font-family:'Space Grotesk',sans-serif;font-size:.7rem;letter-spacing:.08em;padding:.35rem .75rem;border:1px solid transparent;border-radius:3px;cursor:pointer;background:none;color:var(--muted);transition:all .2s;white-space:nowrap;text-decoration:none;display:inline-block}
+.nav-tab:hover{color:var(--c2a);border-color:var(--border)}
+.nav-tab.active{color:var(--c2a);background:var(--panel);border-color:var(--border)}
+.candidate-page{max-width:960px;margin:0 auto;padding:2.5rem}
+.candidate-header{display:flex;align-items:flex-start;gap:1.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);margin-bottom:2rem}
+.candidate-badge{font-family:'Space Grotesk',sans-serif;font-size:2.2rem;font-weight:900;border:2px solid;border-radius:6px;padding:.5rem 1rem;white-space:nowrap;line-height:1;flex-shrink:0}
+.candidate-meta{flex:1}
+.candidate-meta .phase-tag{font-family:'Space Grotesk',sans-serif;font-size:.65rem;letter-spacing:.06em;margin-bottom:.4rem}
+.candidate-meta h2{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:900;line-height:1.1;color:var(--bright);margin-bottom:.5rem}
+.candidate-meta .course-tags{display:flex;gap:.4rem;flex-wrap:wrap}
+.course-tag{font-family:'Space Grotesk',sans-serif;font-size:.6rem;padding:.2rem .5rem;border:1px solid var(--border);border-radius:2px;color:var(--muted)}
+.candidate-name-block{background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;font-family:'Space Grotesk',sans-serif;font-size:.7rem;color:var(--muted)}
+.candidate-name-block strong{color:var(--bright);font-size:.8rem;display:block;margin:.25rem 0}
+.section-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.section-grid.full{grid-template-columns:1fr}
+.section-grid.three{grid-template-columns:1fr 1fr 1fr}
+.info-block{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:1.25rem;position:relative;margin-bottom:0}
+.info-block .block-label{font-family:'Space Grotesk',sans-serif;font-size:.6rem;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem}
+.info-block .block-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.info-block p{font-size:.85rem;line-height:1.65;color:var(--text)}
+.scope-list{list-style:none;font-size:.85rem;line-height:1.7}
+.scope-list li{display:flex;align-items:flex-start;gap:.5rem;padding:.3rem 0;border-bottom:1px solid var(--border)}
+.scope-list li:last-child{border-bottom:none}
+.scope-list li .num{font-family:'Space Grotesk',sans-serif;font-size:.65rem;color:var(--c3e);padding-top:.15rem;flex-shrink:0}
+.deliverable-grid{display:grid;grid-template-columns:1fr;gap:.4rem}
+.deliverable-item{display:flex;align-items:center;gap:.6rem;font-size:.8rem;padding:.4rem .5rem;border:1px solid var(--border);border-radius:3px;background:var(--bg)}
+.deliverable-item .check{width:14px;height:14px;border-radius:2px;border:1px solid var(--border);flex-shrink:0}
+.status-badge{font-family:'Space Grotesk',sans-serif;font-size:.6rem;padding:.15rem .4rem;border-radius:2px;border:1px solid;margin-left:auto;cursor:pointer}
+.status-badge.planned{color:var(--muted);border-color:var(--muted)}
+.status-badge.wip{color:var(--c1c);border-color:var(--c1c)}
+.status-badge.done{color:var(--c2a);border-color:var(--c2a)}
+.research-q-list,.research-o-list{list-style:none;counter-reset:rq}
+.research-o-list{counter-reset:ro}
+.research-q-list li,.research-o-list li{display:flex;align-items:flex-start;gap:.75rem;padding:.65rem 0;border-bottom:1px solid var(--border);font-size:.85rem;line-height:1.5}
+.research-q-list li{counter-increment:rq}
+.research-o-list li{counter-increment:ro}
+.research-q-list li:last-child,.research-o-list li:last-child{border-bottom:none}
+.research-q-list li::before,.research-o-list li::before{font-family:'Space Grotesk',sans-serif;font-size:.6rem;padding:.2rem .4rem;border:1px solid var(--border);border-radius:2px;color:var(--c3e);flex-shrink:0;margin-top:.1rem}
+.research-q-list li::before{content:'RQ' counter(rq)}
+.research-o-list li::before{content:'RO' counter(ro)}
+.method-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.method-tag{font-family:'Space Grotesk',sans-serif;font-size:.65rem;padding:.25rem .6rem;border-radius:3px;border:1px solid}
+.method-pill{display:inline-block;font-family:'Space Grotesk',sans-serif;font-size:.6rem;padding:.18rem .45rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);margin:.12rem .12rem .12rem 0}
+.edit-hint{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:.75rem 1rem;font-family:'Space Grotesk',sans-serif;font-size:.65rem;color:var(--muted);max-width:220px;line-height:1.5;z-index:200}
+.edit-hint span{color:var(--c3e)}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem}
+.problem-card{background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--c3e);border-radius:4px;padding:.85rem;font-size:.8rem;line-height:1.55}
+.problem-card strong{display:block;color:var(--bright);font-size:.78rem;margin-bottom:.35rem;font-family:'Space Grotesk',sans-serif;letter-spacing:.06em}
+.note{font-size:.78rem;color:var(--muted);line-height:1.55;margin-top:.65rem}
+.hl{color:var(--c3e)}
+.tag{font-family:'Space Grotesk',sans-serif;font-size:.58rem;padding:.15rem .4rem;border-radius:2px;border:1px solid;display:inline-block}
+.tag.g{color:var(--c2a);border-color:var(--c2a)}
+.tag.o{color:var(--c1c);border-color:var(--c1c)}
+.tag.r{color:var(--c2b);border-color:var(--c2b)}
+.level-basic{color:var(--c2a);font-family:'Space Grotesk',sans-serif;font-size:.72rem;font-weight:700}
+.level-inter{color:var(--c1c);font-family:'Space Grotesk',sans-serif;font-size:.72rem;font-weight:700}
+.level-adv{color:var(--c2b);font-family:'Space Grotesk',sans-serif;font-size:.72rem;font-weight:700}
+.table-wrap{overflow-x:auto}
+table.rdt-table,table.scope-table,table.lit-table{width:100%;border-collapse:collapse;font-size:.78rem}
+table.rdt-table th,table.scope-table th,table.lit-table th{font-family:'Space Grotesk',sans-serif;font-size:.62rem;letter-spacing:.1em;color:var(--c3e);text-transform:uppercase;text-align:left;padding:.55rem .65rem;border-bottom:2px solid var(--border);background:rgba(45,212,191,.06)}
+table.rdt-table td,table.scope-table td,table.lit-table td{padding:.65rem .65rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5}
+table.rdt-table tbody tr:nth-child(even) td,table.scope-table tbody tr:nth-child(even) td,table.lit-table tbody tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+table.rdt-table td:first-child{font-family:'Space Grotesk',sans-serif;font-size:.7rem;color:var(--c3e);white-space:nowrap;font-weight:700}
+.risk-low{color:var(--c2a);font-family:'Space Grotesk',sans-serif;font-size:.7rem;font-weight:700}
+.risk-med{color:var(--c1c);font-family:'Space Grotesk',sans-serif;font-size:.7rem;font-weight:700}
+.risk-high{color:var(--c2b);font-family:'Space Grotesk',sans-serif;font-size:.7rem;font-weight:700}
+.desc-list{margin:.2rem 0 0 1.1rem;font-size:.78rem;line-height:1.55;color:var(--text)}
+.desc-list li{margin:.2rem 0}
+.placeholder-frame{min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.55rem;background:var(--bg);border:1px dashed var(--border);border-radius:6px;padding:1.5rem;text-align:center;cursor:pointer}
+.placeholder-frame strong{font-family:'Space Grotesk',sans-serif;color:var(--bright);letter-spacing:.06em;font-size:.8rem}
+.placeholder-frame span{font-size:.75rem;color:var(--muted);max-width:520px;line-height:1.5}
+.diagram-container{display:flex;justify-content:center;align-items:center;padding:.5rem;background:var(--bg);border-radius:6px;cursor:pointer}
+.diagram-container img{max-width:100%;height:auto;display:block;border-radius:4px}
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:10000;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+.lightbox.open{display:flex}
+.lightbox img{max-width:92vw;max-height:88vh;border-radius:6px;border:1px solid var(--border)}
+.lightbox-close{position:absolute;top:1.25rem;right:1.5rem;font-family:'Space Grotesk',sans-serif;font-size:.85rem;color:var(--muted);cursor:pointer;background:var(--panel);border:1px solid var(--border);padding:.3rem .7rem;border-radius:3px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;margin-top:.85rem}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.85rem}
+.pipeline-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:.55rem;margin-top:.5rem}
+.pipeline-step{background:var(--bg);border:1px solid var(--border);border-top:2px solid var(--c3e);border-radius:4px;padding:.7rem .55rem;min-height:128px}
+.pipeline-step.support{border-top-color:var(--muted);opacity:.9}
+.pipeline-step .pipeline-num{font-family:'Space Grotesk',sans-serif;font-size:.58rem;color:var(--c3e);margin-bottom:.35rem}
+.pipeline-step.support .pipeline-num{color:var(--muted)}
+.pipeline-step strong{display:block;color:var(--bright);font-size:.74rem;line-height:1.25;margin-bottom:.3rem}
+.pipeline-step span{display:block;color:var(--muted);font-size:.64rem;line-height:1.35}
+.logic-card{background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--c3e);border-radius:4px;padding:.9rem}
+.logic-card h3{font-family:'Space Grotesk',sans-serif;font-size:.72rem;letter-spacing:.08em;color:var(--c3e);margin-bottom:.45rem}
+.logic-card p,.logic-card li{font-size:.78rem;line-height:1.55;color:var(--text)}
+.logic-card ul{margin:.35rem 0 0 1.05rem}
+.logic-card li{margin:.18rem 0}
+.logic-card.warn{border-left-color:var(--c2b)}
+.logic-card.warn h3{color:var(--c2b)}
+code.k{font-family:'Space Grotesk',sans-serif;font-size:.68rem;color:var(--c2a);background:rgba(169,199,255,.08);padding:.05rem .28rem;border-radius:2px}
+@media(max-width:900px){.problem-grid,.g3,.g2,.pipeline-flow{grid-template-columns:1fr}}
+@media(max-width:768px){
+  header{height:auto;padding:.75rem 1rem;flex-wrap:wrap}
+  .nav-tabs{flex-wrap:wrap}
+  .section-grid,.section-grid.three{grid-template-columns:1fr}
+  .candidate-header{flex-direction:column}
+}
+.candidate-card{display:flex;flex-direction:column;align-items:flex-end;gap:.28rem;flex-shrink:0}
+.li-cta{display:flex;flex-direction:column;align-items:flex-end;gap:.12rem;font-family:'Space Grotesk',sans-serif;font-size:.58rem;letter-spacing:.07em;text-transform:uppercase;color:var(--c3e)}
+.li-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--c3e);margin-right:1.35rem}
+.candidate-name-block.linked{border:1.5px solid var(--c3e)}
+.candidate-name-block a.name-link{color:inherit;text-decoration:none;cursor:pointer}
+.candidate-name-block a.name-link:hover strong{color:var(--c3e);text-decoration:underline}
+.resume-btn{display:block;text-align:center;font-family:'Space Grotesk',sans-serif;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--bright);border:1px solid var(--c3e);border-radius:3px;padding:.38rem .75rem;background:transparent}
+.resume-btn:hover{background:rgba(45,212,191,.14);color:var(--c3e)}
+/* Gantt */
+.gantt{display:flex;flex-direction:column;gap:.3rem;margin-top:.5rem}
+.gantt-header{display:flex;gap:.5rem}
+.gantt-header .gantt-label{width:300px;flex-shrink:0}
+.gantt-months{flex:1;display:grid;grid-template-columns:repeat(6,1fr);font-family:'Space Grotesk',sans-serif;font-size:.62rem;color:var(--muted);letter-spacing:.05em;text-align:center;padding-bottom:.3rem}
+.gantt-row{display:flex;gap:.5rem;align-items:center}
+.gantt-row .gantt-label{width:300px;flex-shrink:0;font-size:.74rem;color:var(--text);line-height:1.3;padding:.3rem 0}
+.gantt-track{flex:1;display:grid;grid-template-columns:repeat(6,1fr);gap:0;background:var(--bg);border-radius:3px;min-height:24px;position:relative;border:1px solid var(--border)}
+.gantt-track::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(to right, transparent 0, transparent calc(100%/6 - 1px), var(--border) calc(100%/6 - 1px), var(--border) calc(100%/6));pointer-events:none}
+.gantt-bar{border-radius:3px;height:16px;align-self:center;position:relative;z-index:1}
+.gantt-bar.done{background:var(--c2a)}
+.gantt-bar.wip{background:var(--c3e);box-shadow:0 0 0 2px rgba(45,212,191,.25)}
+.gantt-bar.planned{background:transparent;border:1px dashed var(--muted)}
+.gantt-milestone{width:12px;height:12px;border-radius:50%;background:var(--c2b);align-self:center;justify-self:center;z-index:1;box-shadow:0 0 0 3px rgba(252,88,68,.2)}
+.gantt-legend{display:flex;gap:1.25rem;margin-top:.75rem;font-size:.68rem;color:var(--muted);align-items:center;flex-wrap:wrap}
+.gantt-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:.35rem;vertical-align:middle}
+.gantt-legend i.done{background:var(--c2a)}
+.gantt-legend i.wip{background:var(--c3e)}
+.gantt-legend i.planned{background:transparent;border:1px dashed var(--muted)}
+.gantt-legend i.deadline{background:var(--c2b);border-radius:50%}
+@media(max-width:900px){.gantt-header .gantt-label,.gantt-row .gantt-label{width:150px;font-size:.66rem}}
+</style>
+</head>
+<body>
+<header>
+  <a href="site-home.html" class="logo-badge">SOC-LAB-FYP</a>
+  <h1>Centralised Security Lab Transformation — Final Year Project Map</h1>
+  <nav class="nav-tabs">
+    <a class="nav-tab" href="site-home.html">Overview</a>
+    <a class="nav-tab" href="architecture.html">Architecture</a>
+    <a class="nav-tab" href="phases.html">Phase Map</a>
+    <a class="nav-tab" href="lineage.html">Lineage</a>
+    <a class="nav-tab" href="fyp1a.html" style="color:var(--c1a)">1A</a>
+    <a class="nav-tab" href="fyp1b.html" style="color:var(--c1b)">1B</a>
+    <a class="nav-tab" href="fyp1c.html" style="color:var(--c1c)">1C</a>
+    <a class="nav-tab" href="fyp2a.html" style="color:var(--c2a)">2A</a>
+    <a class="nav-tab" href="fyp2b.html" style="color:var(--c2b)">2B</a>
+    <a class="nav-tab" href="fyp2c.html" style="color:var(--c2c)">2C</a>
+    <a class="nav-tab" href="fyp3a.html" style="color:var(--c3a)">3A</a>
+    <a class="nav-tab" href="fyp3b.html" style="color:var(--c3b)">3B</a>
+    <a class="nav-tab" href="fyp3d.html" style="color:var(--c3d)">3D</a>
+    <a class="nav-tab active" href="fyp3e.html" style="color:var(--c3e)">3E</a>
+  </nav>
+</header>
+
+<div class="candidate-page">
+
+  <div class="candidate-header">
+    <div class="candidate-badge" style="color:var(--c3e);border-color:var(--c3e)">FYP-3E</div>
+    <div class="candidate-meta">
+      <div class="phase-tag" style="color:var(--c3e)">PHASE 3 · CVE AUTOMATION · VALIDATION-FIRST</div>
+      <h2>N-Day Lab — Automated CVE-to-Vulnerable-Lab Pipeline</h2>
+      <div class="course-tags">
+        <span class="course-tag">CVE / KEV Intelligence</span>
+        <span class="course-tag">LLM Agents (Gemini · Claude · DeepSeek)</span>
+        <span class="course-tag">Ansible · Docker</span>
+        <span class="course-tag">WireGuard · iptables</span>
+        <span class="course-tag">FastAPI</span>
+      </div>
+    </div>
+    <div class="candidate-card">
+      <div class="li-cta">Click here to view LinkedIn<span class="li-arrow" aria-hidden="true"></span></div>
+      <div class="candidate-name-block linked">
+        CANDIDATE<br>
+        <a class="name-link" href="https://www.linkedin.com/in/elainewongjingwern/" target="_blank" rel="noopener noreferrer"><strong>Wong Jing Wern (Elaine) 0138949</strong></a>
+        <span style="font-size:.65rem">Supervisor: <a href="https://www.linkedin.com/in/ljkhoo/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline dotted">Ts. Dr. Khoo Li Jing</a></span>
+        <span style="font-size:.65rem;display:block;margin-top:.25rem">Co-supervisor: Ts. Hon Hao Kong (Accenture SEA)</span>
+        <span style="font-size:.65rem;display:block;margin-top:.15rem">Advisors: Loo Hong En (Lab senior) · Enoch Leong (Cybersecurity Engineer)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-grid full">
+    <div class="info-block">
+      <div class="block-label">PROBLEM STATEMENT</div>
+      <div class="problem-grid">
+        <div class="problem-card"><strong>01 · MANUAL LAB AUTHORING IS SLOW</strong>Even an automation-first sibling project in this lineage (FYP-2B) still needs a human to hand-author every vulnerability as a YAML recipe before it can be deployed. Nothing in the existing lineage turns a freshly published CVE ID directly into a working lab without someone writing that recipe first.</div>
+        <div class="problem-card"><strong>02 · NO DETERMINISTIC VALIDATION DESIGN</strong>Most public "AI builds the lab" tooling stops at "the model produced syntax-valid IaC." Almost none of it treats a generated playbook as untrusted until it is actually proven to deploy correctly <em>and</em> enforce access correctly. A validation harness, not playbook generation, is the differentiator — generation is the easy part.</div>
+        <div class="problem-card"><strong>03 · NOT YET INTEGRATED INTO LAB D</strong>The current build is a self-hosted proof-of-concept (a VirtualBox VM, not the Dell R440 / Acer Proxmox cluster). The experimental method right now is deliberately self-host-first: prove the pipeline end-to-end in isolation before taking on Lab D's Forgejo integration.</div>
+      </div>
+      <p class="note">Narrow FYP1 claim (by design, per supervisor feedback): the pipeline runs end-to-end on real, named CVEs. A full evaluation-harness accuracy claim — Feasibility Agent decision accuracy, template-reuse accuracy, deploy success rate, time saved vs. manual authoring — is explicitly FYP2 future work, not claimed here.</p>
+    </div>
+  </div>
+
+  <div class="section-grid">
+    <div class="info-block">
+      <div class="block-label">PROBLEM SOLUTION</div>
+      <p>Given a <span class="hl">CVE ID</span>, the pipeline ingests NVD, CISA KEV, and Exploit-DB data into one deterministic <code class="k">Spec</code>, runs a bounded <span class="hl">FeasibilityAgent</span> judgment (deny-list first, then an AI-assisted verdict capped at 3 NVD reference fetches), checks a local playbook library for a reusable match, and only generates a fresh Ansible playbook with <code class="k">PlaybookGenerationAgent</code> when nothing matches — syntax-checked, retried up to 3 times, model backend swappable (Gemini / Claude / DeepSeek) via one environment variable.</p>
+      <p style="margin-top:.7rem">Feasible, matched-or-generated specs get a <strong>real</strong> <code class="k">ansible-playbook</code> run (not a dry run), and a reviewer gets a <span class="hl">scoped, revocable WireGuard ticket</span> instead of broad network access — each ticket is meant to map to one iptables rule for one target.</p>
+      <p style="margin-top:.7rem">This project inherits an unfinished pipeline from a senior (originally "LabDevisor"); as of 20 Nov 2026 it has been fully taken over, rebuilt, and renamed <strong>N-Day Lab</strong>.</p>
+    </div>
+    <div class="info-block">
+      <div class="block-label">RESEARCH QUESTIONS</div>
+      <ol class="research-q-list">
+        <li>How can CVE intelligence from NVD, CISA KEV, and Exploit-DB be combined with a bounded LLM judgment to decide, per CVE, whether a vulnerable lab can be safely and deterministically reproduced?</li>
+        <li>To what extent can an LLM-driven generator, constrained by a reuse-before-generate rule and syntax validation, produce a deployable Ansible playbook for a real, previously-unseen CVE without a human authoring a recipe?</li>
+        <li>What gaps exist between a playbook that "deploys successfully" (exit code 0) and a lab that is actually reachable, correctly scoped, and safe to hand to a reviewer — and what would a deterministic validation harness need to check to catch them?</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="section-grid full">
+    <div class="info-block">
+      <div class="block-label">PROJECT OBJECTIVES</div>
+      <ol class="research-o-list">
+        <li>Build a CVE-to-lab pipeline that ingests NVD/KEV/Exploit-DB data, runs a bounded feasibility judgment, and reuses or generates an Ansible playbook per CVE without a hand-authored recipe.</li>
+        <li>Deploy that pipeline end-to-end against real, named CVEs on an isolated VM, including issuing scoped per-target reviewer access over WireGuard.</li>
+        <li>Document, from real deployment attempts, the concrete gaps between "the playbook deployed" and "the lab is actually correct and safely scoped" — to define the deterministic validation harness planned for FYP2.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="section-grid full">
+    <div class="info-block">
+      <div class="block-label">CONCEPTUAL FRAMEWORK</div>
+      <div class="diagram-container" id="cfWrap">
+        <img id="cfImg" src="assets/fyp3e_conceptual_diagram.png" alt="Conceptual framework of the CVE-to-lab pipeline" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="placeholder-frame" style="display:none;width:100%">
+          <strong>IMAGE PLACEHOLDER</strong>
+          <span>Drop your FYP1 conceptual framework figure here as <code style="color:var(--c3e)">assets/fyp3e_conceptual_diagram.png</code>. Click the frame after the image is added to enlarge it.</span>
+        </div>
+      </div>
+      <p class="note">Context (slow manual lab authoring, no deterministic validation design in comparable tooling) leads to the artefact: a feasibility-gated, reuse-before-generate pipeline that deploys for real and issues scoped access — with the gaps found in that real deployment feeding the FYP2 validation harness design.</p>
+    </div>
+  </div>
+
+  <div class="section-grid full">
+    <div class="info-block">
+      <div class="block-label">SYSTEM LOGIC — FEASIBILITY-GATED, REUSE-BEFORE-GENERATE</div>
+      <p class="note" style="margin:0 0 .75rem">The distinctive logic is not "AI writes a playbook." It is: ingest → gate on feasibility → prefer a reviewed match over a fresh generation → deploy for real → gate access per ticket.</p>
+
+      <div class="pipeline-flow">
+        <div class="pipeline-step">
+          <div class="pipeline-num">01 · CORE</div>
+          <strong>Ingest &amp; normalise</strong>
+          <span>NVD / CISA KEV / Exploit-DB clients (cached, retry/backoff) merged into one deterministic <code class="k">Spec</code>. No model involved at this stage.</span>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-num">02 · CORE</div>
+          <strong>Feasibility gate</strong>
+          <span>Deny-list baseline verdict, then <code class="k">FeasibilityAgent</code> overwrites it with a bounded AI judgment (≤3 NVD reference fetches). Blocks proprietary/firmware targets.</span>
+        </div>
+        <div class="pipeline-step support">
+          <div class="pipeline-num">03 · SUPPORT</div>
+          <strong>Reuse before generate</strong>
+          <span><code class="k">LibraryIndex</code> matches vuln-class + software against a local playbook catalogue. Reusing a reviewed playbook is cheaper and safer than generating fresh.</span>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-num">04 · CORE</div>
+          <strong>Generate &amp; verify syntax</strong>
+          <span><code class="k">PlaybookGenerationAgent</code> only runs on feasible, unmatched specs. Syntax-checked, retried ≤3×; keeps the last draft + error log on failure.</span>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-num">05 · CORE</div>
+          <strong>Deploy &amp; gate access</strong>
+          <span>Real <code class="k">ansible-playbook</code> run, then a scoped WireGuard ticket: one keypair, one assigned tunnel IP, one intended iptables ACCEPT rule.</span>
+        </div>
+      </div>
+
+      <div class="g2" style="margin-top:1rem">
+        <div class="logic-card">
+          <h3>FEASIBILITY — TWO-STAGE VERDICT</h3>
+          <p>Stage 1 (<code class="k">deterministic_extract.py</code>) sets a baseline verdict by deny-list match alone — deterministic, no model. Stage 2 (<code class="k">FeasibilityAgent.assess()</code>) overwrites it with an AI-assisted judgment that can also fetch NVD reference URLs, capped at 3 calls so a flaky model can't loop forever.</p>
+          <p style="margin-top:.5rem">Open question carried into Limitations: NVD's April 2026 enrichment policy now only fully enriches CVEs in KEV / gov-used / critical software. A data-poor, non-KEV CVE can resolve vendor/software to "unknown" — risking either a silent default to "feasible" (deny-list has nothing to match) or an overly conservative block (agent has too little to confirm feasibility). Flagged, not yet empirically confirmed on a live case.</p>
+        </div>
+        <div class="logic-card">
+          <h3>SWAPPABLE MODEL BACKEND</h3>
+          <p><code class="k">factory.py</code>'s <code class="k">feasibility_model_from_env()</code> / <code class="k">playbook_model_from_env()</code> pick Gemini, Claude, or DeepSeek from one environment variable. This was not a theoretical nicety — validated as a real operational save during live deployment this week:</p>
+          <ul>
+            <li>Gemini 2.5-series returned 404 (deprecated for this project) → switched model string, unblocked.</li>
+            <li>Gemini then hit 429 (rate-limited) on a later CVE → switched provider entirely to DeepSeek, no code change, unblocked again.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-grid full">
+    <div class="info-block">
+      <div class="block-label">VERIFICATION &amp; VALIDATION — WHY THIS IS THE KEY GAP</div>
+      <p class="note" style="margin:0 0 .75rem">A successful <code class="k">ansible-playbook</code> exit code is not "ready", and a syntax-valid AI-generated playbook is not "correct". This section documents what the pipeline checks today, and what real deployment this week showed it does <em>not</em> yet catch.</p>
+      <div class="g3" style="margin-top:0">
+        <div class="logic-card">
+          <h3>PRE-DEPLOY (TODAY)</h3>
+          <ul>
+            <li>Deny-list feasibility gate (Section above).</li>
+            <li><code class="k">LibraryIndex</code> requires both vuln-class <em>and</em> software to match before reuse.</li>
+            <li>Generated playbooks syntax-checked, retried ≤3× before being handed to a human.</li>
+            <li>Own unit/integration test suite passing (25/25) against recorded fixtures — no live deploy involved.</li>
+          </ul>
+        </div>
+        <div class="logic-card">
+          <h3>AT DEPLOY (TODAY)</h3>
+          <ul>
+            <li>Real <code class="k">ansible-playbook</code> run (not <code class="k">--syntax-check</code>) against an inline <code class="k">lab_targets</code> inventory, <code class="k">--connection=local</code>.</li>
+            <li><code class="k">lab_bind_host</code> / <code class="k">lab_port</code> passed as extra-vars; <code class="k">ok=True</code> is only <code class="k">rc==0</code> — it does <strong>not</strong> independently confirm the target is listening.</li>
+          </ul>
+        </div>
+        <div class="logic-card warn">
+          <h3>GAPS FOUND THIS WEEK (27 NOV 2026, LIVE)</h3>
+          <ul>
+            <li>A missing <code class="k">LAB_BIND_HOST</code> env var silently defaults to <code class="k">127.0.0.1</code> — deploy reports <code class="k">ok:true</code> for a target that is unreachable from outside the host, with no error raised anywhere.</li>
+            <li>A generated playbook can get the <code class="k">--publish {{ lab_bind_host }}:{{ lab_port }}</code> templating exactly right and still expose nothing, if it also creates its Docker network with <code class="k">--internal</code> — confirmed on the CVE-2024-4577 playbook. Neither the syntax check nor the feasibility gate catch this.</li>
+            <li>The WireGuard+iptables ticket system's per-target scoping is enforced on the <code class="k">INPUT</code> chain — but Docker's own DNAT for <code class="k">--publish</code>'d containers routes through <code class="k">FORWARD</code> / <code class="k">DOCKER-FORWARD</code> instead. Confirmed live: any issued ticket could reach every deployed target, not just its own.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="note" style="margin-top:.85rem">None of the three gaps above were caught by <code class="k">ansible-playbook</code>'s exit code, the generator's syntax check, or the feasibility gate — each only surfaced once someone actually tried to reach the deployed target from outside the host. This is the concrete evidence motivating RQ3 and the FYP2 validation harness, not a hypothetical concern.</p>
+    </div>
+  </div>
+
+  <div class="section-grid full">
+    <div class="info-block">
+      <div class="block-label">RESEARCH DESIGN TABLE</div>
+      <p class="note" style="margin:0 0 .75rem">Methods map each research question to an objective and expected outcome. Scope is deliberately narrow for FYP1 — see note under Problem Statement.</p>
+      <div class="table-wrap">
+        <table class="rdt-table">
+          <thead>
+            <tr><th>No.</th><th>Research question</th><th>Objective</th><th>Methods</th><th>Expected outcome</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>RQ1</td>
+              <td>How can CVE intelligence (NVD/KEV/Exploit-DB) plus a bounded LLM judgment decide, per CVE, whether a lab can be safely and deterministically reproduced?</td>
+              <td>RO1 — Feasibility-gated ingestion pipeline</td>
+              <td><span class="method-pill">Literature</span><span class="method-pill">Policy docs (NVD)</span><span class="method-pill">Existing systems</span></td>
+              <td>A working feasibility gate, tested against real CVEs including a data-poor, non-KEV case.</td>
+            </tr>
+            <tr>
+              <td>RQ2</td>
+              <td>To what extent can reuse-before-generate plus syntax-constrained AI generation produce a deployable playbook for a previously-unseen CVE without a hand-authored recipe?</td>
+              <td>RO2 — End-to-end deploy + scoped access on real CVEs</td>
+              <td><span class="method-pill">Prototype build</span><span class="method-pill">Case study (Log4Shell, CVE-2024-4577)</span></td>
+              <td>Pipeline reaches a reviewer-reachable lab end-to-end for named CVEs, with no hand-written recipe for either case.</td>
+            </tr>
+            <tr>
+              <td>RQ3</td>
+              <td>What gaps exist between "the playbook deployed" and "the lab is correct and safely scoped", and what should a deterministic validation harness check?</td>
+              <td>RO3 — Documented failure-mode checklist for FYP2</td>
+              <td><span class="method-pill">Field observation</span><span class="method-pill">Root-cause analysis</span></td>
+              <td>A concrete, code-grounded checklist of deploy-time and access-time failure modes (3 found already) to seed the FYP2 harness design.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-grid three">
+    <div class="info-block">
+      <div class="block-label">METHODOLOGY</div>
+      <div class="method-tags">
+        <span class="method-tag" style="color:var(--c3e);border-color:var(--c3e)">DSRM</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">Iterative problem redefinition</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">Case study</span>
+      </div>
+      <p style="margin-top:.75rem;font-size:.8rem">Design Science Research Methodology (identify, define, design, demonstrate, evaluate, communicate). The "define" stage was revisited four times between Sept and Nov 2026 (see Timeline) before landing on the current scope — documented honestly rather than presented as a single linear plan.</p>
+    </div>
+    <div class="info-block">
+      <div class="block-label">TOOLS &amp; TECHNOLOGY</div>
+      <div class="method-tags">
+        <span class="method-tag" style="color:var(--c3e);border-color:var(--c3e)">FastAPI</span>
+        <span class="method-tag" style="color:var(--c3e);border-color:var(--c3e)">Ansible</span>
+        <span class="method-tag" style="color:var(--c3e);border-color:var(--c3e)">Docker</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">WireGuard</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">iptables</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">NVD REST API</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">CISA KEV</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">Exploit-DB</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">Gemini · Claude · DeepSeek</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">pytest</span>
+        <span class="method-tag" style="color:var(--muted);border-color:var(--border)">Git / Forgejo (planned)</span>
+      </div>
+    </div>
+    <div class="info-block">
+      <div class="block-label">COURSE ALIGNMENT</div>
+      <p class="note" style="margin:0">To fill in: which course weeks / labs this maps to (left blank rather than guessed — add your own module/week references here).</p>
+    </div>
+  </div>
+
+  <div class="section-grid full">
+    <div class="info-block">
+      <div class="block-label">LITERATURE / EXISTING SYSTEMS</div>
+      <div class="table-wrap">
+        <table class="lit-table">
+          <thead>
+            <tr><th>Platform</th><th>Type</th><th>Limitation for this project</th><th>Selected?</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>FYP-2B — Red Team Provisioning Pipeline</strong></td>
+              <td>Recipe-based orchestration (this lineage)</td>
+              <td>Strong orchestration + post-deploy HTTP verification pattern, but every vulnerability is a hand-authored YAML recipe. No mechanism to go from a new CVE ID to a lab without a person writing that recipe first.</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><strong>Vulhub / DVWA / Metasploitable</strong></td>
+              <td>Pre-built vulnerable-image catalogues</td>
+              <td>Fixed, pre-selected CVE set. No feasibility judgment, no live CVE-driven generation — new CVEs simply aren't covered until someone manually adds them.</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><strong>Generic AI-IaC-generation demos</strong></td>
+              <td>LLM-drafted Terraform/Ansible from a prompt</td>
+              <td>Typically stop at "the model produced syntax-valid IaC." Rarely check that the deployed result is reachable, correctly bound, or correctly access-scoped — exactly the gap found in this project's own pipeline this week.</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><strong>This project (3E — N-Day Lab)</strong></td>
+              <td>CVE-driven, feasibility-gated automation</td>
+              <td>Validation harness itself is FYP2 future work, not yet built; Lab D / Forgejo integration not yet started. Both gaps stated openly, not hidden.</td>
+              <td><span class="tag g">✓ SELECTED</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="g3">
+        <div class="info-block" style="border-left:3px solid var(--c3e);margin:0">
+          <div class="block-label">What is automated</div>
+          <p>FYP-2B automates deployment <em>of a recipe a human already wrote</em>. <span class="hl">This project</span> automates the step before that: deciding feasibility and drafting the recipe itself, directly from a CVE ID.</p>
+        </div>
+        <div class="info-block" style="border-left:3px solid var(--c1c);margin:0">
+          <div class="block-label">Validation posture</div>
+          <p>Most comparable tooling treats "deploy succeeded" as the finish line. <span class="hl">This project's contribution</span> is treating that as the <em>start</em> of validation — evidenced by three real gaps found only by actually trying to reach a deployed target.</p>
+        </div>
+        <div class="info-block" style="border-left:3px solid var(--c2a);margin:0">
+          <div class="block-label">Integration posture</div>
+          <p>Deliberately self-hosted first. Lab D integration (Forgejo) is scoped as a distinct, later step — not claimed as done, and not conflated with proving the core pipeline works.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-grid full">
+    <div class="info-block">
+      <div class="block-label">PROJECT TIMELINE — FYP1 → FYP2 (GANTT)</div>
+      <p class="note" style="margin:0 0 .75rem">This is the project's actual pivot history, not a schedule planned in advance — the FYP direction changed four times between September and November 2026 before landing on the current scope. Dates are approximate to the month except where noted.</p>
+      <div class="gantt">
+        <div class="gantt-header">
+          <div class="gantt-label"></div>
+          <div class="gantt-months"><span>Sep '26</span><span>Oct '26</span><span>Nov '26</span><span>Dec '26</span><span>Jan '27</span><span>Feb '27</span></div>
+        </div>
+        <div class="gantt-row">
+          <div class="gantt-label">Diagnostic-assistant direction settled; title registered (5 Oct)</div>
+          <div class="gantt-track"><div class="gantt-bar done" style="grid-column:1/3"></div></div>
+        </div>
+        <div class="gantt-row">
+          <div class="gantt-label">Pivot: CVE → Sigma rule + SOC playbook (Dify)</div>
+          <div class="gantt-track"><div class="gantt-bar done" style="grid-column:2/3"></div></div>
+        </div>
+        <div class="gantt-row">
+          <div class="gantt-label">Pivot: take over senior's unfinished pipeline, reframe as evaluation harness (3 Nov)</div>
+          <div class="gantt-track"><div class="gantt-milestone" style="grid-column:3/4"></div></div>
+        </div>
+        <div class="gantt-row">
+          <div class="gantt-label">Full takeover as sole developer; FYP1 scope narrowed to "build it end-to-end" (20–23 Nov)</div>
+          <div class="gantt-track"><div class="gantt-bar done" style="grid-column:3/4"></div></div>
+        </div>
+        <div class="gantt-row">
+          <div class="gantt-label">Renamed to N-Day Lab; repo + demo VM + WireGuard ticket build (24–26 Nov)</div>
+          <div class="gantt-track"><div class="gantt-bar done" style="grid-column:3/4"></div></div>
+        </div>
+        <div class="gantt-row">
+          <div class="gantt-label">End-to-end validation, 2 real CVEs + 3 gaps found live (27 Nov — this week)</div>
+          <div class="gantt-track"><div class="gantt-bar wip" style="grid-column:3/4"></div></div>
+        </div>
+        <div class="gantt-row">
+          <div class="gantt-label">FYP1 Documentation + Pitch Presentation due (29 Nov)</div>
+          <div class="gantt-track"><div class="gantt-milestone" style="grid-column:3/4"></div></div>
+        </div>
+        <div class="gantt-row">
+          <div class="gantt-label">Forgejo API mapping + Lab D integration (planned, FYP2)</div>
+          <div class="gantt-track"><div class="gantt-bar planned" style="grid-column:4/6"></div></div>
+        </div>
+        <div class="gantt-row">
+          <div class="gantt-label">Deterministic evaluation harness: feasibility/reuse accuracy, deploy success, time saved (planned, FYP2)</div>
+          <div class="gantt-track"><div class="gantt-bar planned" style="grid-column:5/7"></div></div>
+        </div>
+      </div>
+      <div class="gantt-legend">
+        <span><i class="done"></i> Completed</span>
+        <span><i class="wip"></i> In progress / this week</span>
+        <span><i class="planned"></i> Planned (FYP2)</span>
+        <span><i class="deadline"></i> Deadline</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-block" style="margin-bottom:1.25rem">
+    <div class="block-label">DELIVERABLES &amp; STATUS</div>
+    <div class="deliverable-grid">
+      <div class="deliverable-item"><div class="check"></div>NVD / CISA KEV / Exploit-DB ingestion clients (cached, replayable from fixtures)<span class="status-badge done">DONE</span></div>
+      <div class="deliverable-item"><div class="check"></div>Deterministic spec extraction + two-stage feasibility gate<span class="status-badge done">DONE</span></div>
+      <div class="deliverable-item"><div class="check"></div>Reuse-before-generate (LibraryIndex) + syntax-checked playbook generation<span class="status-badge done">DONE</span></div>
+      <div class="deliverable-item"><div class="check"></div>Swappable model backend (Gemini / Claude / DeepSeek)<span class="status-badge done">DONE</span></div>
+      <div class="deliverable-item"><div class="check"></div>Own test suite passing (25/25) against recorded fixtures<span class="status-badge done">DONE</span></div>
+      <div class="deliverable-item"><div class="check"></div>Real Ansible deploy + scoped WireGuard ticket issuance<span class="status-badge done">DONE</span></div>
+      <div class="deliverable-item"><div class="check"></div>End-to-end validation on 2 real CVEs (Log4Shell, CVE-2024-4577)<span class="status-badge done">DONE</span></div>
+      <div class="deliverable-item"><div class="check"></div>DOCKER-USER-chain fix for ticket scoping<span class="status-badge planned">PLANNED</span></div>
+      <div class="deliverable-item"><div class="check"></div>Forgejo API mapping (Lab D integration)<span class="status-badge planned">PLANNED</span></div>
+      <div class="deliverable-item"><div class="check"></div>Deterministic evaluation harness (FYP2)<span class="status-badge planned">PLANNED</span></div>
+    </div>
+  </div>
+
+  <div class="info-block" style="margin-bottom:1.25rem">
+    <div class="block-label">FUTURE ENHANCEMENT</div>
+    <ol class="scope-list">
+      <li><span class="num">01</span><span>Move per-ticket access rules from <code class="k">INPUT</code>/<code class="k">NDAYLAB_TICKETS</code> to <code class="k">DOCKER-USER</code> so scoping actually holds for Docker-published targets.</span></li>
+      <li><span class="num">02</span><span>Forgejo API mapping to pull/register playbooks from Lab D's own repo instead of a local <code class="k">out/</code> folder.</span></li>
+      <li><span class="num">03</span><span>The FYP2 evaluation harness itself: Feasibility Agent decision accuracy, template-reuse decision accuracy, deploy-success rate, and time saved vs. manual authoring, benchmarked against a labelled CVE set.</span></li>
+      <li><span class="num">04</span><span>Handle NVD's post-April-2026 enrichment gap for non-KEV CVEs explicitly in the feasibility logic instead of letting thin data silently default a verdict.</span></li>
+      <li><span class="num">05</span><span>Ticket expiry / multi-user auth (out of scope for this single-operator MVP).</span></li>
+    </ol>
+  </div>
+
+</div>
+<div id="lineage-strip" data-fyp="3E"></div>
+<script src="lineage-data.js"></script>
+<script src="lineage.js"></script>
+
+<div class="edit-hint">
+  Click <span>diagrams</span> to enlarge. Status badges cycle locally.
+</div>
+
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" id="lbClose">✕ CLOSE</span>
+  <img id="lbImg" src="" alt="">
+</div>
+
+<script>
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('status-badge')) {
+    const cycle = ['planned', 'wip', 'done'];
+    for (let i = 0; i < cycle.length; i++) {
+      if (e.target.classList.contains(cycle[i])) {
+        e.target.classList.remove(cycle[i]);
+        const next = cycle[(i + 1) % cycle.length];
+        e.target.classList.add(next);
+        e.target.textContent = next.toUpperCase();
+        return;
+      }
+    }
+  }
+});
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+function openLb(src, alt) {
+  if (!src) return;
+  lbImg.src = src;
+  lbImg.alt = alt || '';
+  lb.classList.add('open');
+}
+const cfWrap = document.getElementById('cfWrap');
+const cfImg = document.getElementById('cfImg');
+if (cfWrap && cfImg) {
+  cfWrap.addEventListener('click', () => {
+    if (cfImg.style.display !== 'none' && cfImg.getAttribute('src')) openLb(cfImg.src, cfImg.alt);
+  });
+}
+document.getElementById('lbClose').addEventListener('click', () => lb.classList.remove('open'));
+lb.addEventListener('click', e => { if (e.target === lb) lb.classList.remove('open'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('open'); });
+</script>
+</body>
+</html>

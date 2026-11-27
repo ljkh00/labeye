@@ -21,7 +21,8 @@ window.LINEAGE = {
   profiles: {
     "Ng Khai Zhe": "https://www.linkedin.com/in/khai-zhe-ng-806090282",
     "Lim Jun Zhe": "https://www.linkedin.com/in/lim-jun-zhe-nathan-6932aa25a",
-    "Khoo Li Jing & Cohort 1": "https://www.linkedin.com/in/ljkhoo/"
+    "Khoo Li Jing & Cohort 1": "https://www.linkedin.com/in/ljkhoo/",
+    "Wong Jing Wern (Elaine)": "https://www.linkedin.com/in/elainewongjingwern/"
   },
   lanes: [
     { id: "1A", title: "Virtualisation & Image Management", color: "#3C90FF", parent: null,  page: "fyp1a.html" },
@@ -33,7 +34,8 @@ window.LINEAGE = {
     { id: "3A", title: "Honeypot & Threat Intel",           color: "#FDBA74", parent: "2C",  page: "fyp3a.html" },
     { id: "3B", title: "IDS/IPS Integration & Tuning",      color: "#FFB598", parent: "2C",  page: "fyp3b.html" },
     { id: "3C", title: "Lab Orchestration (retired)",       color: "#8B90A1", parent: "1C",  page: null },
-    { id: "3D", title: "Identity & Access (Active Directory)", color: "#F472B6", parent: "1B", page: "fyp3d.html" }
+    { id: "3D", title: "Identity & Access (Active Directory)", color: "#F472B6", parent: "1B", page: "fyp3d.html" },
+    { id: "3E", title: "N-Day Lab (CVE-to-Vulnerable-Lab Pipeline)", color: "#87A896", parent: ["1C", "2B"], page: "fyp3e.html" }
   ],
   events: [
     // --- Seed entries: dates are when the scope was first published on this site.
@@ -56,6 +58,8 @@ window.LINEAGE = {
     { fyp: "2C", date: "2026-10", type: "completed", person: "Yee Shun Qi", note: "Project completed" },
     { fyp: "3A", date: "2026-10", type: "completed", person: "Lam Zhan Hong", note: "Project completed" },
     { fyp: "3D", date: "2026-11", type: "initiated", person: "—", note: "Scope drafted; candidate identified" },
-    { fyp: "3D", date: "2027-01", type: "planned",   person: "Talent #2", note: "Planned start of AD / RBAC build" }
+    { fyp: "3D", date: "2027-01", type: "planned",   person: "Talent #2", note: "Planned start of AD / RBAC build" },
+    { fyp: "3E", date: "2026-11", type: "handover",  person: "Wong Jing Wern (Elaine)", note: "Took over senior's unfinished CVE-to-vulnerable-lab pipeline ('LabDevisor'); fully rebuilt, scope narrowed, renamed N-Day Lab" },
+    { fyp: "3E", date: "2026-11", type: "continued", person: "Wong Jing Wern (Elaine)", note: "End-to-end validation on real CVEs (Log4Shell, CVE-2024-4577) on a self-hosted VM; Lab D / Forgejo integration planned for FYP2" }
   ]
 };
