@@ -17,6 +17,7 @@
   const ym = d => { const [y, m] = d.split("-").map(Number); return y * 12 + (m - 1); };
   const fmt = d => { const [y, m] = d.split("-"); return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][m - 1] + " " + y; };
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const who = p => { const u = (L.profiles || {})[p]; return u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline">${esc(p)}</a>` : esc(p); };
   const evs = L.events.slice().sort((a, b) => ym(a.date) - ym(b.date));
   const now = new Date(); const nowYM = now.getFullYear() * 12 + now.getMonth();
 
@@ -96,7 +97,7 @@
       le.forEach((e, k) => {
         const x = X(ym(e.date)) + (le.filter((z, j) => j < k && z.date === e.date).length) * 14;
         s += `<g class="lin-dot"><title>FYP-${e.fyp} · ${fmt(e.date)} · ${(TYPES[e.type] || {}).label || e.type} · ${esc(e.person)} — ${esc(e.note)}</title>${dot(e.type, ln.color, x, y, 6)}</g>`;
-        if (e.person && !["TBC", "—", "N/A"].includes(e.person) && !le.slice(0, k).some(z => z.person === e.person)) s += `<text x="${x}" y="${y - 11}" font-size="9" fill="#DFE2EF" text-anchor="middle">${esc(e.person)}</text>`;
+        if (e.person && !["TBC", "—", "N/A"].includes(e.person) && !le.slice(0, k).some(z => z.person === e.person)) s += ((L.profiles || {})[e.person] ? `<a href="${esc(L.profiles[e.person])}" target="_blank"><text x="${x}" y="${y - 11}" font-size="9" fill="#A9C7FF" text-anchor="middle" text-decoration="underline">${esc(e.person)}</text></a>` : `<text x="${x}" y="${y - 11}" font-size="9" fill="#DFE2EF" text-anchor="middle">${esc(e.person)}</text>`);
       });
     });
     g.innerHTML = legend() + `<div class="lin-scroll">${s}</svg></div>`;
@@ -108,7 +109,7 @@
     t.innerHTML = `<table class="lin-table"><thead><tr><th>When</th><th>FYP</th><th>Milestone</th><th>Talent</th><th>Note</th></tr></thead><tbody>` +
       evs.slice().reverse().map(e => { const ln = lane(e.fyp) || { color: "#8B90A1" };
         const id = ln.page ? `<a href="${ln.page}" style="color:${ln.color};text-decoration:none">FYP-${e.fyp}</a>` : `<span style="color:${ln.color}">FYP-${e.fyp}</span>`;
-        return `<tr><td>${fmt(e.date)}</td><td>${id}</td><td><span class="lin-chip" style="color:${ln.color};border-color:${ln.color}">${(TYPES[e.type] || {}).label || e.type}</span></td><td>${esc(e.person)}</td><td>${esc(e.note)}${e.link ? ` · <a href="${esc(e.link)}" style="color:#A9C7FF">report</a>` : ""}</td></tr>`; }).join("") +
+        return `<tr><td>${fmt(e.date)}</td><td>${id}</td><td><span class="lin-chip" style="color:${ln.color};border-color:${ln.color}">${(TYPES[e.type] || {}).label || e.type}</span></td><td>${who(e.person)}</td><td>${esc(e.note)}${e.link ? ` · <a href="${esc(e.link)}" style="color:#A9C7FF">report</a>` : ""}</td></tr>`; }).join("") +
       `</tbody></table>`;
   }
 
@@ -125,7 +126,7 @@
     sp.innerHTML = `<div class="box"><div class="lbl">PROJECT LINEAGE ${rel ? "· " + rel : ""} <a href="lineage.html">full lineage →</a></div>
       <div class="lin-row" style="--lc:${ln.color}">` + (le.length ? le.map(e => {
         const T = TYPES[e.type] || {};
-        return `<div class="lin-step"><div class="d ${T.fill ? "f" : ""}"></div><div class="when">${fmt(e.date)} · ${T.label || e.type}</div><div class="who">${esc(e.person)}</div><div class="what">${esc(e.note)}</div></div>`;
+        return `<div class="lin-step"><div class="d ${T.fill ? "f" : ""}"></div><div class="when">${fmt(e.date)} · ${T.label || e.type}</div><div class="who">${who(e.person)}</div><div class="what">${esc(e.note)}</div></div>`;
       }).join("") : `<div class="what" style="font-size:.75rem;color:#8B90A1">No milestones recorded yet.</div>`) + `</div></div>`;
   }
 })();

@@ -17,6 +17,10 @@
                docs stay in the private pack; don't link them here.
    ===================================================================== */
 window.LINEAGE = {
+  /* Candidate LinkedIn profiles — person name → URL */
+  profiles: {
+    "Ng Khai Zhe": "https://www.linkedin.com/in/khai-zhe-ng-806090282"
+  },
   lanes: [
     { id: "1A", title: "Virtualisation & Image Management", color: "#3C90FF", parent: null,  page: "fyp1a.html" },
     { id: "1B", title: "Network Segmentation",              color: "#B166FF", parent: "1A",  page: "fyp1b.html" },
