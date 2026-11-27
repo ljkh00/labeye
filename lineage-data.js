@@ -19,7 +19,9 @@
 window.LINEAGE = {
   /* Candidate LinkedIn profiles — person name → URL */
   profiles: {
-    "Ng Khai Zhe": "https://www.linkedin.com/in/khai-zhe-ng-806090282"
+    "Ng Khai Zhe": "https://www.linkedin.com/in/khai-zhe-ng-806090282",
+    "Lim Jun Zhe": "https://www.linkedin.com/in/lim-jun-zhe-nathan-6932aa25a",
+    "Khoo Li Jing & Cohort 1": "https://www.linkedin.com/in/ljkhoo/"
   },
   lanes: [
     { id: "1A", title: "Virtualisation & Image Management", color: "#3C90FF", parent: null,  page: "fyp1a.html" },
@@ -36,7 +38,7 @@ window.LINEAGE = {
   events: [
     // --- Seed entries: dates are when the scope was first published on this site.
     // --- Replace "TBC" / adjust dates to each cohort's real start month.
-    { fyp: "1A", date: "2026-04", type: "initiated", person: "N/A", note: "Scope published; prerequisite for all phases" },
+    { fyp: "1A", date: "2026-01", type: "initiated", person: "Khoo Li Jing & Cohort 1", note: "Foundation build (lecturer-led with all 6 Cohort 1 students); prerequisite for all phases" },
     { fyp: "1B", date: "2026-04", type: "initiated", person: "Gan Ming Yan", note: "Scope published" },
     { fyp: "1C", date: "2026-04", type: "initiated", person: "Lim Jun Zhe", note: "Scope published" },
     { fyp: "2A", date: "2026-04", type: "initiated", person: "Loo Hong En", note: "Scope published" },
@@ -46,7 +48,7 @@ window.LINEAGE = {
     { fyp: "3B", date: "2026-04", type: "deferred",  person: "—",   note: "Scope defined; awaiting student intake" },
     { fyp: "3C", date: "2026-04", type: "initiated", person: "—",   note: "Scope published" },
     { fyp: "3C", date: "2026-09", type: "retired",   person: "—",   note: "Folded into 2A / 1C / 2B; ID not reused" },
-    { fyp: "1A", date: "2026-10", type: "completed", person: "N/A", note: "Project completed" },
+    { fyp: "1A", date: "2026-10", type: "completed", person: "Khoo Li Jing & Cohort 1", note: "Project completed" },
     { fyp: "1B", date: "2026-10", type: "completed", person: "Gan Ming Yan", note: "Project completed" },
     { fyp: "1C", date: "2026-10", type: "completed", person: "Lim Jun Zhe", note: "Project completed" },
     { fyp: "2A", date: "2026-10", type: "completed", person: "Loo Hong En", note: "Project completed" },
